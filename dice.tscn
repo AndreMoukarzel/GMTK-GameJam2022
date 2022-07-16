@@ -46,6 +46,7 @@ metadata/_edit_lock_ = true
 
 [node name="ProjectedMoves" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0.501961)
+z_index = 2
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
