@@ -1,6 +1,7 @@
 extends Node2D
 
 signal moved
+signal dashed
 
 
 const MOV_DIST: int = 32
@@ -9,6 +10,11 @@ const PROJ_TIME: float = 1.5 # Time to show the moves' projections
 const PROJ_FADE_IN_TIME: float = 0.8
 
 @export var FireScn: PackedScene
+@export var IceScn: PackedScene
+@export var EarthScn: PackedScene
+@export var WindScn: PackedScene
+@export var BoltScn: PackedScene
+#@export var FireScn: PackedScene
 #@export var can_move_to_broken: bool = true
 
 #var sides_broken = [false, false, false, false, false, false]
@@ -100,13 +106,20 @@ func move(direction: Vector2i) -> void:
 	$ProjectedMoves.modulate = Color(1, 1, 1, 0)
 	$ProjTimer.start()
 	
-	emit_signal("moved")
 	sides = turn_dice(sides, direction)
 	$Label.text = str(sides['top'])
 	
 	await mov_tween.finished
 	if sides['top'] == 6:
 		_fire()
+	elif sides['top'] == 5:
+		_ice()
+	elif sides['top'] == 1:
+		_bolt()
+	elif sides['top'] == 4:
+		_air(direction)
+		await dashed
+	emit_signal("moved")
 
 
 func damage():
@@ -137,9 +150,38 @@ func _update_projected_moves() -> void:
 
 
 func _fire():
-	var fire = FireScn.instantiate()
-	fire.global_position = global_position
-	get_parent().add_child(fire)
+	var Fire = FireScn.instantiate()
+	Fire.global_position = global_position
+	get_parent().add_child(Fire)
+
+
+func _ice():
+	var enemy = get_parent().get_closest_enemy(target_pos)
+	var Ice = IceScn.instantiate()
+	
+	enemy.freeze()
+	
+	Ice.global_position = get_absolute_pos()
+	get_parent().add_child(Ice)
+	Ice.fly_to(enemy, enemy.get_absolute_pos())
+
+
+func _bolt():
+	var enemy = get_parent().get_closest_enemy(target_pos)
+	var Bolt = BoltScn.instantiate()
+	
+	Bolt.global_position = get_absolute_pos()
+	get_parent().add_child(Bolt)
+	Bolt.fly_to(enemy, enemy.get_absolute_pos())
+
+
+func _air(direction: Vector2i) -> void:
+	var mov_tween: Tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
+	
+	target_pos += 2 * direction
+	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME)
+	await mov_tween.finished
+	emit_signal("dashed")
 
 
 func _on_proj_timer_timeout():

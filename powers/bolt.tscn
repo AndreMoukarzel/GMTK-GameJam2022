@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvi12bx5tt4os"]
+
+[ext_resource type="Script" path="res://powers/bolt.gd" id="1_583j7"]
+
+[node name="Bolt" type="Node2D"]
+script = ExtResource("1_583j7")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.568627, 0, 1, 1)
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+metadata/_edit_lock_ = true

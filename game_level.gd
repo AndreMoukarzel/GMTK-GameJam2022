@@ -52,6 +52,19 @@ func get_closest_enemy(pos: Vector2i) -> Node2D:
 	
 	return closest
 
+
+func get_most_distant_enemy(pos: Vector2i) -> Node2D:
+	var enemies = get_enemies()
+	if len(enemies) == 0:
+		return null
+	var distant = enemies[0]
+	for en in enemies:
+		if Vector2(pos).distance_to(en.current_pos) > Vector2(pos).distance_to(distant.current_pos):
+			distant = en
+	
+	return distant
+
+
 func next_turn() -> void:
 	$EnemyActionDelay.start()
 	await $EnemyActionDelay.timeout

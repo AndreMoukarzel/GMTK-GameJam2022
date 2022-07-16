@@ -4,9 +4,10 @@ extends Node2D
 const MOV_DIST: int = 32
 const MOV_TIME: float = 0.3
 
-@export_range(1, 5) var mov_num: int
+var mov_num: int = 2
 var current_pos: Vector2i = Vector2i.ONE
 var life: int = 3
+var is_frozen: bool = false
 
 
 func spawn(pos: Vector2i) -> void:
@@ -15,18 +16,22 @@ func spawn(pos: Vector2i) -> void:
 
 
 func act(player_pos: Vector2i) -> void:
-	for i in range(mov_num):
-		var hor_diff = player_pos.x - current_pos.x
-		var ver_diff = player_pos.y - current_pos.y
-		var mov_tween
-		
-		if abs(hor_diff) > abs(ver_diff):
-			mov_tween = move(Vector2i(sign(hor_diff), 0))
-		else:
-			mov_tween = move(Vector2i(0, sign(ver_diff)))
-		
-		if mov_tween:
-			await mov_tween.finished
+	if is_frozen:
+		is_frozen = false
+	else:
+		unfreeze()
+		for i in range(mov_num):
+			var hor_diff = player_pos.x - current_pos.x
+			var ver_diff = player_pos.y - current_pos.y
+			var mov_tween
+			
+			if abs(hor_diff) > abs(ver_diff):
+				mov_tween = move(Vector2i(sign(hor_diff), 0))
+			else:
+				mov_tween = move(Vector2i(0, sign(ver_diff)))
+			
+			if mov_tween:
+				await mov_tween.finished
 
 
 func get_absolute_pos() -> Vector2i:
@@ -47,6 +52,18 @@ func damage(value: int) -> void:
 	life -= value
 	if life <= 0:
 		queue_free()
+
+
+func freeze() -> void:
+	is_frozen = true
+
+
+func unfreeze() -> void:
+	modulate = Color(1, 1, 1)
+
+
+func freeze_fx() -> void:
+	modulate = Color(0, 0, 1)
 
 
 func _on_area_2d_area_entered(area):

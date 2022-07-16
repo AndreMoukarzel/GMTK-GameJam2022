@@ -7,7 +7,6 @@ size = Vector2(32, 32)
 
 [node name="BaseEnemy" type="Node2D"]
 script = ExtResource("1_s5jod")
-mov_num = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(1, 0, 0, 1)
