@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cph46ads3un8s"
-path="res://.godot/imported/bolt.png-e44f31d75809d30052fd8ae7dc34320a.ctex"
+uid="uid://bta4biih3p3st"
+path="res://.godot/imported/plant.png-7cf884547a65805979a596ae95970d0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://powers/bolt.png"
-dest_files=["res://.godot/imported/bolt.png-e44f31d75809d30052fd8ae7dc34320a.ctex"]
+source_file="res://dice/plant.png"
+dest_files=["res://.godot/imported/plant.png-7cf884547a65805979a596ae95970d0d.ctex"]
 
 [params]
 

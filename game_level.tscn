@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bde3ov8fp6hwj"]
+[gd_scene load_steps=3 format=3 uid="uid://c7vstrtkrh7y1"]
 
 [ext_resource type="Script" path="res://game_level.gd" id="1_5p1f5"]
-[ext_resource type="PackedScene" uid="uid://18w7rm5rm083" path="res://dice.tscn" id="2_2pgwh"]
+[ext_resource type="PackedScene" uid="uid://dumqyv05watte" path="res://dice/dice.tscn" id="2_2pgwh"]
 
 [node name="GameLevel" type="Node"]
 script = ExtResource("1_5p1f5")

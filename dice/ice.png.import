@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bta4biih3p3st"
-path="res://.godot/imported/plant.png-5149a4c0e0a8d7f66cbc34989c218466.ctex"
+uid="uid://0gqh0bqy6qcv"
+path="res://.godot/imported/ice.png-0ac55045105b5cfa957b3c54f1a3d362.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://powers/plant.png"
-dest_files=["res://.godot/imported/plant.png-5149a4c0e0a8d7f66cbc34989c218466.ctex"]
+source_file="res://dice/ice.png"
+dest_files=["res://.godot/imported/ice.png-0ac55045105b5cfa957b3c54f1a3d362.ctex"]
 
 [params]
 

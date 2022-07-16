@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bda50fdbba6eh"
-path="res://.godot/imported/wind.png-1b5752f2697ee57557a2e93d8fc4b9af.ctex"
+uid="uid://cph46ads3un8s"
+path="res://.godot/imported/bolt.png-7285752d4e45ae6aa540b6e2d0516685.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://powers/wind.png"
-dest_files=["res://.godot/imported/wind.png-1b5752f2697ee57557a2e93d8fc4b9af.ctex"]
+source_file="res://dice/bolt.png"
+dest_files=["res://.godot/imported/bolt.png-7285752d4e45ae6aa540b6e2d0516685.ctex"]
 
 [params]
 

@@ -28,6 +28,7 @@ var sides: Dictionary = {
 	'north': 5,
 	'bottom': 6
 }
+var sides_to_powers = ["bolt", "rock", "plant", "wind", "ice", "fire"]
 var projections_tween: Tween
 
 
@@ -93,6 +94,10 @@ func get_absolute_pos() -> Vector2i:
 	return target_pos * MOV_DIST
 
 
+func int2power(value: int) -> String:
+	return sides_to_powers[value - 1]
+
+
 func move(direction: Vector2i) -> void:
 	var mov_tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
 	
@@ -105,8 +110,13 @@ func move(direction: Vector2i) -> void:
 	$ProjectedMoves.modulate = Color(1, 1, 1, 0)
 	$ProjTimer.start()
 	
+	#var prev_top_side = int2power(sides['top']) 
 	sides = turn_dice(sides, direction)
-	$Label.text = str(sides['top'])
+	#var new_top_side = int2power(sides['top'])
+	#$Top.texture = load("res://dice/" + int2power(sides['top']) + ".png")
+	#print(prev_top_side)
+	#print(new_top_side)
+	_animate_dice_roll(direction)
 	
 	await mov_tween.finished
 	if sides['top'] == 6:
@@ -130,10 +140,10 @@ func damage(value: int=1):
 
 
 func _update_projected_moves() -> void:
-	$ProjectedMoves/Left/Label.text = str(sides['east'])
-	$ProjectedMoves/Right/Label.text = str(sides['west'])
-	$ProjectedMoves/Up/Label.text = str(sides['south'])
-	$ProjectedMoves/Down/Label.text = str(sides['north'])
+	$ProjectedMoves/Left.texture = load("res://dice/" + int2power(sides['east']) + ".png")
+	$ProjectedMoves/Right.texture = load("res://dice/" + int2power(sides['west']) + ".png")
+	$ProjectedMoves/Up.texture= load("res://dice/" + int2power(sides['south']) + ".png")
+	$ProjectedMoves/Down.texture = load("res://dice/" + int2power(sides['north']) + ".png")
 	$ProjectedMoves/Left.show()
 	$ProjectedMoves/Right.show()
 	$ProjectedMoves/Up.show()
@@ -148,6 +158,36 @@ func _update_projected_moves() -> void:
 		$ProjectedMoves/Up.hide()
 	elif offset and target_pos.y + 1 > offset.y:
 		$ProjectedMoves/Down.hide()
+
+
+func _animate_dice_roll(direction: Vector2i) -> void:
+	var top_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
+	var sec_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
+	
+	$Secondary.texture = load("res://dice/" + int2power(sides['top']) + ".png")
+	if direction.x != 0:
+		$Secondary.position = -direction * 16
+		$Secondary.scale = Vector2(0.0, 0.125)
+		
+		top_twn.tween_property($Top, "position", Vector2(direction) * 16, MOV_TIME)
+		top_twn.parallel().tween_property($Top, "scale", Vector2(0.0, 0.125), MOV_TIME)
+		
+		sec_twn.tween_property($Secondary, "position", Vector2(0, 0), MOV_TIME)
+		sec_twn.parallel().tween_property($Secondary, "scale", Vector2(0.125, 0.125), MOV_TIME)
+	elif direction.y != 0:
+		$Secondary.position = -direction * 16
+		$Secondary.scale = Vector2(0.125, 0.0)
+		
+		top_twn.tween_property($Top, "position", Vector2(direction) * 16, MOV_TIME)
+		top_twn.parallel().tween_property($Top, "scale", Vector2(0.125, 0.0), MOV_TIME)
+		
+		sec_twn.tween_property($Secondary, "position", Vector2(0, 0), MOV_TIME)
+		sec_twn.parallel().tween_property($Secondary, "scale", Vector2(0.125, 0.125), MOV_TIME)
+	
+	await top_twn.finished
+	$Top.scale = Vector2(0.125, 0.125)
+	$Top.position = Vector2(0, 0)
+	$Top.texture = load("res://dice/" + int2power(sides['top']) + ".png")
 
 
 func _fire():
