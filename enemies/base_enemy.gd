@@ -4,10 +4,16 @@ extends Node2D
 const MOV_DIST: int = 32
 const MOV_TIME: float = 0.3
 
+@onready var game_level = get_parent().get_parent()
+@onready var map_rows = game_level.MAP_SIZE.y
+@onready var map_cols = game_level.MAP_SIZE.x
+var astar = AStar2D.new()
+
 var mov_num: int = 2
 var current_pos: Vector2i = Vector2i.ONE
 var life: int = 3
 var is_frozen: bool = false
+
 
 func spawn(pos: Vector2i) -> void:
 	current_pos = pos
@@ -52,13 +58,6 @@ func _on_area_2d_area_entered(area):
 	queue_free()
 
 
-@onready var game_level = get_parent().get_parent()
-@onready var astar = AStar2D.new()
-
-@onready var map_rows = game_level.MAP_SIZE.y
-@onready var map_cols = game_level.MAP_SIZE.x
-
-
 func getAvailablePoints(rows, cols, obstacles_positions):
 	var i = 1
 	
@@ -86,7 +85,6 @@ func getPathToPlayer(player_pos: Vector2i):
 	# Returns a list of points (by id) that connect the enemy to the player
 	var enemy_pos_id  = getIdFromCoordinates(current_pos.y, current_pos.x)
 	var player_pos_id = getIdFromCoordinates(player_pos.y, player_pos.x)
-	print("Enemy pos = {e} -- Player Pos = {p}".format({"e": enemy_pos_id, "p": player_pos_id}))
 	var path = astar.get_point_path(enemy_pos_id, player_pos_id)
 	return(path)
 
@@ -98,7 +96,7 @@ func getIdFromCoordinates(row: int, col: int):
 func getCoordinatesFromId(id: int) -> Vector2i:
 	var row: int = floor(id/map_cols) + 1
 	var col: int = id % map_cols
-	return(Vector2i(row+1, col))
+	return(Vector2i(row + 1, col))
 
 
 func returnPathCoordinates(point_ids: Array):
@@ -109,19 +107,23 @@ func returnPathCoordinates(point_ids: Array):
 
 
 func act(player_pos: Vector2i):
-	# Implementar: pegar os obstãculos existentes no mapa
-	getAvailablePoints(map_rows, map_cols, [])
-	var path_coordinates = getPathToPlayer(player_pos)
-	var moves_made = min(mov_num, len(path_coordinates)-1)
+	if is_frozen:
+		is_frozen = false
+	else:
+		unfreeze()
+		# Implementar: pegar os obstãculos existentes no mapa
+		getAvailablePoints(map_rows, map_cols, [])
+		var path_coordinates = getPathToPlayer(player_pos)
+		var moves_made = min(mov_num, len(path_coordinates)-1)
 
-	var movements_to_be_made = []
-	var vert_mov = 0
-	var hor_mov  = 0
+		var movements_to_be_made = []
+		var vert_mov = 0
+		var hor_mov  = 0
 
-	for i in range(1, moves_made+1):
-		hor_mov = path_coordinates[i][1] - path_coordinates[i-1][1]
-		vert_mov = path_coordinates[i][0] - path_coordinates[i-1][0]
-		movements_to_be_made.append(Vector2i(hor_mov, vert_mov))
-	
-	for movement in movements_to_be_made:
-		move(movement)
+		for i in range(1, moves_made + 1):
+			hor_mov = path_coordinates[i][1] - path_coordinates[i-1][1]
+			vert_mov = path_coordinates[i][0] - path_coordinates[i-1][0]
+			movements_to_be_made.append(Vector2i(hor_mov, vert_mov))
+		
+		for movement in movements_to_be_made:
+			move(movement)
