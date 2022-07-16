@@ -6,6 +6,7 @@ const MOV_TIME: float = 0.3
 
 @export_range(1, 5) var mov_num: int
 var current_pos: Vector2i = Vector2i.ONE
+var life: int = 3
 
 
 func spawn(pos: Vector2i) -> void:
@@ -40,6 +41,12 @@ func move(direction: Vector2i) -> Tween:
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME/mov_num)
 	
 	return mov_tween
+
+
+func damage(value: int) -> void:
+	life -= value
+	if life <= 0:
+		queue_free()
 
 
 func _on_area_2d_area_entered(area):

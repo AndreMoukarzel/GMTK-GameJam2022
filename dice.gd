@@ -8,9 +8,13 @@ const MOV_TIME: float = 0.3
 const PROJ_TIME: float = 1.5 # Time to show the moves' projections
 const PROJ_FADE_IN_TIME: float = 0.8
 
+@export var FireScn: PackedScene
+#@export var can_move_to_broken: bool = true
+
+#var sides_broken = [false, false, false, false, false, false]
+var life: int = 6
 var target_pos: Vector2i = Vector2i.ONE
 var offset
-
 var sides: Dictionary = {
 	'top': 1,
 	'south': 2,
@@ -99,10 +103,16 @@ func move(direction: Vector2i) -> void:
 	emit_signal("moved")
 	sides = turn_dice(sides, direction)
 	$Label.text = str(sides['top'])
+	
+	await mov_tween.finished
+	if sides['top'] == 6:
+		_fire()
 
 
 func damage():
-	print("Damaged")
+	#sides_broken[sides['top']]
+	life -= 1
+	print("Life = ", life)
 
 
 func _update_projected_moves() -> void:
@@ -124,6 +134,12 @@ func _update_projected_moves() -> void:
 		$ProjectedMoves/Up.hide()
 	elif offset and target_pos.y + 1 > offset.y:
 		$ProjectedMoves/Down.hide()
+
+
+func _fire():
+	var fire = FireScn.instantiate()
+	fire.global_position = global_position
+	get_parent().add_child(fire)
 
 
 func _on_proj_timer_timeout():

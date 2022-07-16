@@ -1,6 +1,6 @@
 extends Node
 
-const MAP_SIZE = Vector2i(31, 18)
+const MAP_SIZE = Vector2i(27, 17)
 
 @export var PlayerScn: PackedScene
 @export var initial_pos: Vector2i
@@ -35,6 +35,8 @@ func spawn_enemies():
 
 
 func next_turn() -> void:
+	$EnemyActionDelay.start()
+	await $EnemyActionDelay.timeout
 	for child in $Enemies.get_children():
 		child.act(Player.target_pos)
 	

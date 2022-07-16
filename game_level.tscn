@@ -9,3 +9,7 @@ PlayerScn = ExtResource("2_2pgwh")
 initial_pos = Vector2i(5, 5)
 
 [node name="Enemies" type="Node" parent="."]
+
+[node name="EnemyActionDelay" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
