@@ -34,11 +34,32 @@ func spawn_enemies():
 		$Enemies.add_child(enemy_inst)
 
 
+func get_enemies():
+	var enemies = []
+	for child in $Enemies.get_children():
+		enemies.append(child)
+	return enemies
+
+
+func get_closest_enemy(pos: Vector2i) -> Node2D:
+	var enemies = get_enemies()
+	if len(enemies) == 0:
+		return null
+	var closest = enemies[0]
+	for en in enemies:
+		if Vector2(pos).distance_to(en.current_pos) < Vector2(pos).distance_to(closest.current_pos):
+			closest = en
+	
+	return closest
+
 func next_turn() -> void:
 	$EnemyActionDelay.start()
 	await $EnemyActionDelay.timeout
 	for child in $Enemies.get_children():
-		child.act(Player.target_pos)
+		if is_instance_valid(child):
+			child.act(Player.target_pos)
+			$EnemyActionDelay.start()
+			await $EnemyActionDelay.timeout
 	
 	if $Enemies.get_child_count() == 0:
 		spawn_enemies()
