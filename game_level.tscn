@@ -5,5 +5,7 @@
 
 [node name="GameLevel" type="Node"]
 script = ExtResource("1_5p1f5")
-Player = ExtResource("2_2pgwh")
+PlayerScn = ExtResource("2_2pgwh")
 initial_pos = Vector2i(5, 5)
+
+[node name="Enemies" type="Node" parent="."]

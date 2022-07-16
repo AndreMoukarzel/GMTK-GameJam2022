@@ -101,6 +101,10 @@ func move(direction: Vector2i) -> void:
 	$Label.text = str(sides['top'])
 
 
+func damage():
+	print("Damaged")
+
+
 func _update_projected_moves() -> void:
 	$ProjectedMoves/Left/Label.text = str(sides['east'])
 	$ProjectedMoves/Right/Label.text = str(sides['west'])
@@ -120,6 +124,7 @@ func _update_projected_moves() -> void:
 		$ProjectedMoves/Up.hide()
 	elif offset and target_pos.y + 1 > offset.y:
 		$ProjectedMoves/Down.hide()
+
 
 func _on_proj_timer_timeout():
 	projections_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
