@@ -11,10 +11,9 @@ const PROJ_FADE_IN_TIME: float = 0.8
 
 @export var FireScn: PackedScene
 @export var IceScn: PackedScene
-@export var EarthScn: PackedScene
-@export var WindScn: PackedScene
+@export var RockScn: PackedScene
+@export var PlantScn: PackedScene
 @export var BoltScn: PackedScene
-#@export var FireScn: PackedScene
 #@export var can_move_to_broken: bool = true
 
 #var sides_broken = [false, false, false, false, false, false]
@@ -114,6 +113,8 @@ func move(direction: Vector2i) -> void:
 		_fire()
 	elif sides['top'] == 5:
 		_ice()
+	elif sides['top'] == 2:
+		_rock(direction)
 	elif sides['top'] == 1:
 		_bolt()
 	elif sides['top'] == 4:
@@ -122,9 +123,9 @@ func move(direction: Vector2i) -> void:
 	emit_signal("moved")
 
 
-func damage():
+func damage(value: int=1):
 	#sides_broken[sides['top']]
-	life -= 1
+	life -= value
 	print("Life = ", life)
 
 
@@ -166,6 +167,13 @@ func _ice():
 	Ice.fly_to(enemy, enemy.get_absolute_pos())
 
 
+func _rock(direction: Vector2i) -> void:
+	var Rock = RockScn.instantiate()
+	
+	Rock.global_position = (target_pos - direction) * MOV_DIST
+	get_parent().add_child(Rock)
+
+
 func _bolt():
 	var enemy = get_parent().get_closest_enemy(target_pos)
 	var Bolt = BoltScn.instantiate()
@@ -179,6 +187,8 @@ func _air(direction: Vector2i) -> void:
 	var mov_tween: Tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
 	
 	target_pos += 2 * direction
+	target_pos.x = clampi(target_pos.x, 1, offset.x)
+	target_pos.y = clampi(target_pos.y, 1, offset.y)
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME)
 	await mov_tween.finished
 	emit_signal("dashed")

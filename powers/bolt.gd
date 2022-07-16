@@ -9,7 +9,6 @@ func fly_to(enemy: Node2D, target_pos: Vector2i) -> void:
 	var tween = create_tween().set_trans(Tween.TRANS_BACK)
 	
 	tween.tween_property(self, "position", Vector2(target_pos), FLY_TIME)
-	await tween.finished
-	#enemy.freeze_fx()
 	enemy.damage(3)
+	await tween.finished
 	queue_free()
