@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://18w7rm5rm083"]
+[gd_scene load_steps=7 format=3 uid="uid://18w7rm5rm083"]
 
 [ext_resource type="Script" path="res://dice.gd" id="1_x2wl8"]
 [ext_resource type="PackedScene" uid="uid://ckv3marudby42" path="res://powers/fire.tscn" id="2_0jeea"]
 [ext_resource type="PackedScene" uid="uid://8e00oxt076xk" path="res://powers/ice.tscn" id="3_shpk7"]
 [ext_resource type="PackedScene" uid="uid://dvi12bx5tt4os" path="res://powers/bolt.tscn" id="4_2b3co"]
+[ext_resource type="PackedScene" uid="uid://du5aqdlghke74" path="res://powers/rock.tscn" id="4_hgrp0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t352r"]
 size = Vector2(10, 10)
@@ -12,6 +13,7 @@ size = Vector2(10, 10)
 script = ExtResource("1_x2wl8")
 FireScn = ExtResource("2_0jeea")
 IceScn = ExtResource("3_shpk7")
+RockScn = ExtResource("4_hgrp0")
 BoltScn = ExtResource("4_2b3co")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
