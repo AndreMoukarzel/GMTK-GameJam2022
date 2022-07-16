@@ -66,7 +66,8 @@ func turn_dice(posicoes: Dictionary, direction: Vector2i) -> Dictionary:
 		changed_sides = ['top', 'east', 'bottom', 'west']
 	elif direction.x == -1: # Left
 		changed_sides = ['west', 'bottom', 'east', 'top']
-	elif direction.y == -1: # Up
+	
+	if direction.y == -1: # Up
 		changed_sides = ['south', 'top', 'north', 'bottom']
 	elif direction.y == 1: # Down
 		changed_sides = ['bottom', 'north', 'top', 'south']
@@ -105,7 +106,20 @@ func _update_projected_moves() -> void:
 	$ProjectedMoves/Right/Label.text = str(sides['west'])
 	$ProjectedMoves/Up/Label.text = str(sides['south'])
 	$ProjectedMoves/Down/Label.text = str(sides['north'])
-
+	$ProjectedMoves/Left.show()
+	$ProjectedMoves/Right.show()
+	$ProjectedMoves/Up.show()
+	$ProjectedMoves/Down.show()
+	
+	if target_pos.x - 1 == 0:
+		$ProjectedMoves/Left.hide()
+	elif offset and target_pos.x + 1 > offset.x:
+		$ProjectedMoves/Right.hide()
+	
+	if target_pos.y - 1 == 0:
+		$ProjectedMoves/Up.hide()
+	elif offset and target_pos.y + 1 > offset.y:
+		$ProjectedMoves/Down.hide()
 
 func _on_proj_timer_timeout():
 	projections_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
