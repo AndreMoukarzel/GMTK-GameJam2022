@@ -21,6 +21,9 @@ shape = SubResource("RectangleShape2D_t352r")
 [node name="MovTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="ProjTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Label" type="Label" parent="."]
 modulate = Color(0, 0, 0, 1)
 offset_left = -16.0
@@ -31,3 +34,86 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
+
+[node name="ProjectedMoves" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Left" type="Node2D" parent="ProjectedMoves"]
+position = Vector2(-32, 0)
+scale = Vector2(0.8, 0.8)
+
+[node name="Polygon2D" type="Polygon2D" parent="ProjectedMoves/Left"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ProjectedMoves/Left"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Right" type="Node2D" parent="ProjectedMoves"]
+position = Vector2(32, 0)
+scale = Vector2(0.8, 0.8)
+
+[node name="Polygon2D" type="Polygon2D" parent="ProjectedMoves/Right"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ProjectedMoves/Right"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Up" type="Node2D" parent="ProjectedMoves"]
+position = Vector2(0, -32)
+scale = Vector2(0.8, 0.8)
+
+[node name="Polygon2D" type="Polygon2D" parent="ProjectedMoves/Up"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ProjectedMoves/Up"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Down" type="Node2D" parent="ProjectedMoves"]
+position = Vector2(0, 32)
+scale = Vector2(0.8, 0.8)
+
+[node name="Polygon2D" type="Polygon2D" parent="ProjectedMoves/Down"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ProjectedMoves/Down"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[connection signal="timeout" from="ProjTimer" to="." method="_on_proj_timer_timeout"]

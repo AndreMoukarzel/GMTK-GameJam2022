@@ -5,22 +5,27 @@ signal moved
 
 const MOV_DIST: int = 32
 const MOV_TIME: float = 0.3
+const PROJ_TIME: float = 1.5 # Time to show the moves' projections
+const PROJ_FADE_IN_TIME: float = 0.8
 
 var target_pos: Vector2i = Vector2i.ONE
 var offset
 
-
-var positions: Dictionary = {
-	'f1': 1,
-	'f2': 2,
-	'f3': 3,
-	'f4': 4,
-	'f5': 5,
-	'f6': 6
+var sides: Dictionary = {
+	'top': 1,
+	'south': 2,
+	'east': 3,
+	'west': 4,
+	'north': 5,
+	'bottom': 6
 }
+var projections_tween: Tween
+
 
 func _ready():
 	$MovTimer.wait_time = MOV_TIME
+	$ProjTimer.wait_time = PROJ_TIME
+	_update_projected_moves()
 
 
 func _input(event) -> void:
@@ -45,6 +50,7 @@ func _input(event) -> void:
 				print("Invalid pos")
 			else:
 				move(Vector2i(-1, 0))
+		_update_projected_moves()
 
 
 func turn_dice(posicoes: Dictionary, direction: Vector2i) -> Dictionary:
@@ -55,20 +61,20 @@ func turn_dice(posicoes: Dictionary, direction: Vector2i) -> Dictionary:
 	for i in range(len(faces)):
 		inverse[numeros[i]] = faces[i]
 	var aux_copy = posicoes.duplicate()
-	var changed_positions = []
+	var changed_sides = []
 	if direction.x == 1: # Right
-		changed_positions = ['f1', 'f3', 'f6', 'f4']
+		changed_sides = ['top', 'east', 'bottom', 'west']
 	elif direction.x == -1: # Left
-		changed_positions = ['f4', 'f6', 'f3', 'f1']
+		changed_sides = ['west', 'bottom', 'east', 'top']
 	elif direction.y == -1: # Up
-		changed_positions = ['f2', 'f1', 'f5', 'f6']
+		changed_sides = ['south', 'top', 'north', 'bottom']
 	elif direction.y == 1: # Down
-		changed_positions = ['f6', 'f5', 'f1', 'f2']
-	for i in range(len(changed_positions)):
-		if i < (len(changed_positions) - 1):
-			aux_copy[changed_positions[i+1]] = posicoes[changed_positions[i]]
+		changed_sides = ['bottom', 'north', 'top', 'south']
+	for i in range(len(changed_sides)):
+		if i < (len(changed_sides) - 1):
+			aux_copy[changed_sides[i+1]] = posicoes[changed_sides[i]]
 		else:
-			aux_copy[changed_positions[0]] = posicoes[changed_positions[-1]]
+			aux_copy[changed_sides[0]] = posicoes[changed_sides[-1]]
 	return aux_copy
 
 
@@ -79,9 +85,29 @@ func get_absolute_pos() -> Vector2i:
 
 func move(direction: Vector2i) -> void:
 	var mov_tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
+	
 	target_pos += direction
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME)
 	$MovTimer.start()
+	
+	if projections_tween:
+		projections_tween.kill()
+	$ProjectedMoves.modulate = Color(1, 1, 1, 0)
+	$ProjTimer.start()
+	
 	emit_signal("moved")
-	positions = turn_dice(positions, direction)
-	$Label.text = str(positions['f1'])
+	sides = turn_dice(sides, direction)
+	$Label.text = str(sides['top'])
+
+
+func _update_projected_moves() -> void:
+	$ProjectedMoves/Left/Label.text = str(sides['east'])
+	$ProjectedMoves/Right/Label.text = str(sides['west'])
+	$ProjectedMoves/Up/Label.text = str(sides['south'])
+	$ProjectedMoves/Down/Label.text = str(sides['north'])
+
+
+func _on_proj_timer_timeout():
+	projections_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
+	projections_tween.tween_property($ProjectedMoves, "modulate",\
+		Color(1, 1, 1, 0.5), PROJ_FADE_IN_TIME)
