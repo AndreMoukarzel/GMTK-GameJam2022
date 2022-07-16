@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://wwjxb5k8chxy"]
+
+[ext_resource type="Script" path="res://enemies/base_enemy.gd" id="1_s5jod"]
+
+[node name="BaseEnemy" type="Node2D"]
+script = ExtResource("1_s5jod")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+metadata/_edit_lock_ = true

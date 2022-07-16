@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bde3ov8fp6hwj"]
+
+[ext_resource type="Script" path="res://game_level.gd" id="1_5p1f5"]
+[ext_resource type="PackedScene" uid="uid://18w7rm5rm083" path="res://dice.tscn" id="2_2pgwh"]
+
+[node name="GameLevel" type="Node"]
+script = ExtResource("1_5p1f5")
+Player = ExtResource("2_2pgwh")
+initial_pos = Vector2i(5, 5)
