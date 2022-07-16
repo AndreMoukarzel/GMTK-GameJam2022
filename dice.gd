@@ -187,6 +187,8 @@ func _air(direction: Vector2i) -> void:
 	var mov_tween: Tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
 	
 	target_pos += 2 * direction
+	target_pos.x = clampi(target_pos.x, 1, offset.x)
+	target_pos.y = clampi(target_pos.y, 1, offset.y)
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME)
 	await mov_tween.finished
 	emit_signal("dashed")
