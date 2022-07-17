@@ -2,6 +2,7 @@ extends Node2D
 
 signal moved
 signal dashed
+signal iced
 
 
 const MOV_DIST: int = 32
@@ -124,6 +125,7 @@ func move(direction: Vector2i, obstacles: Array, enemy_positions: Array) -> void
 		_fire()
 	elif sides['top'] == 5:
 		_ice()
+		await iced
 	elif sides['top'] == 2:
 		_rock(direction)
 	elif sides['top'] == 1:
@@ -209,7 +211,9 @@ func _ice():
 	
 	Ice.global_position = get_absolute_pos()
 	get_parent().add_child(Ice)
-	Ice.fly_to(enemy, enemy.get_absolute_pos())
+	Ice.fly_to(enemy)
+	await Ice.done
+	emit_signal("iced")
 
 
 func _rock(direction: Vector2i) -> void:

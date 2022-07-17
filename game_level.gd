@@ -53,7 +53,6 @@ func get_closest_enemy(pos: Vector2i) -> Node2D:
 	for en in enemies:
 		if Vector2(pos).distance_to(en.current_pos) < Vector2(pos).distance_to(closest.current_pos):
 			closest = en
-	
 	return closest
 
 
@@ -73,7 +72,6 @@ func get_most_distant_enemy(pos: Vector2i) -> Node2D:
 	for en in enemies:
 		if Vector2(pos).distance_to(en.current_pos) > Vector2(pos).distance_to(distant.current_pos):
 			distant = en
-	
 	return distant
 
 
