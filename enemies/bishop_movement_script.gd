@@ -23,6 +23,7 @@ func getAvailablePoints(rows, cols, obstacles_positions):
 							astar.connect_points(i, neighbour_cell_id)
 			i += 1
 
+
 func getRandomNeighbourCell(position: Vector2i, obstacles_positions):
 	var possible_moves = [
 		Vector2i(-1, 0),

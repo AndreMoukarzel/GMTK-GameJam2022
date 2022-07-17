@@ -4,8 +4,7 @@ extends Node
 var MAP_SIZE: Vector2i
 
 @export var PlayerScn: PackedScene
-#@export var initial_pos: Vector2i
-var initial_pos: Vector2i = Vector2i(10, 10)
+var initial_pos: Vector2i = Vector2i(15, 11)
 
 var Player
 var obstacles = []
