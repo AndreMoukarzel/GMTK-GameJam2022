@@ -260,9 +260,9 @@ func _plant(direction: Vector2i, obstacles_positions: Array) -> void:
 	var Plant1 = PlantScn.instantiate()
 	var Plant2 = PlantScn.instantiate()
 	var Plant3 = PlantScn.instantiate()
-	var plant1_pos = (target_pos + 2 * direction) + Vector2i(-direction.y, -direction.x)
-	var plant2_pos = (target_pos + 2 * direction)
-	var plant3_pos = (target_pos + 2 * direction) + Vector2i(direction.y, direction.x)
+	var plant1_pos = (target_pos + 2 * -direction) + Vector2i(-direction.y, -direction.x)
+	var plant2_pos = (target_pos + 2 * -direction)
+	var plant3_pos = (target_pos + 2 * -direction) + Vector2i(direction.y, direction.x)
 	
 	get_parent().get_node("Plants").add_child(Plant1)
 	get_parent().get_node("Plants").add_child(Plant2)
