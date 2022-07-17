@@ -29,6 +29,7 @@ func move(direction: Vector2i) -> Tween:
 
 	current_pos += direction
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME/mov_num)
+	$MoveSfx.play()
 
 	return mov_tween
 

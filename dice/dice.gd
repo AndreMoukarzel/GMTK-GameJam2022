@@ -181,6 +181,7 @@ func _animate_dice_roll(direction: Vector2i) -> void:
 	var top_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	var sec_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	
+	$MoveSfx.play()
 	$Top.modulate = Color(1, 1, 1)
 	$Secondary.texture = load("res://dice/" + int2power(sides['top']) + ".png")
 	if int2power(sides['top']) in sides_broken:

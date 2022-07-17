@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dumqyv05watte"]
+[gd_scene load_steps=15 format=3 uid="uid://dumqyv05watte"]
 
 [ext_resource type="Script" path="res://dice/dice.gd" id="1_so3cc"]
 [ext_resource type="PackedScene" uid="uid://ckv3marudby42" path="res://powers/fire.tscn" id="2_7xr16"]
@@ -9,9 +9,25 @@
 [ext_resource type="Texture2D" uid="uid://cph46ads3un8s" path="res://dice/bolt.png" id="6_g0xlq"]
 [ext_resource type="PackedScene" uid="uid://c0bogmxvcmjnw" path="res://powers/air.tscn" id="7_tneug"]
 [ext_resource type="AudioStream" uid="uid://k41appmbn7ag" path="res://dice/hit.wav" id="9_ob36e"]
+[ext_resource type="AudioStream" uid="uid://b2vnf8aentcoo" path="res://dice/move.wav" id="10_blgjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t352r"]
 size = Vector2(10, 10)
+
+[sub_resource type="Animation" id="Animation_2oj7n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_olxl8"]
 resource_name = "break"
@@ -27,21 +43,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.2, 0.2, 0.2, 1), Color(1, 1, 1, 1), Color(0.2, 0.2, 0.2, 1), Color(1, 1, 1, 1), Color(0.2, 0.2, 0.2, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_2oj7n"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Top:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ds4f"]
@@ -122,5 +123,8 @@ libraries = {
 
 [node name="DamageSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_ob36e")
+
+[node name="MoveSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_blgjb")
 
 [connection signal="timeout" from="ProjTimer" to="." method="_on_proj_timer_timeout"]

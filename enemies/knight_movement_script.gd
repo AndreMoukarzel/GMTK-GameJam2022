@@ -15,6 +15,9 @@ func move(direction: Vector2i) -> Tween:
 	mov_tween.chain().tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME/2)
 	
 	mov_tween.chain().tween_property($Sprite2D, "scale", Vector2(1, 1), MOV_TIME)
+	
+	await mov_tween.finished
+	$MoveSfx.play()
 
 	return mov_tween
 
