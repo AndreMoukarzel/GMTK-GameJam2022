@@ -16,6 +16,8 @@ func grow(pos: Vector2i, pos_modifier: int, obstacles: Array):
 		global_position = pos * pos_modifier
 		GameLevel.obstacles.append(pos)
 		my_pos = pos
+	else:
+		queue_free()
 
 
 func act(_player_pos: Vector2i, _obstacles: Array):
