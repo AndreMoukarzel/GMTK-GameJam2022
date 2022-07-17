@@ -63,6 +63,7 @@ offset_right = 2419.0
 offset_bottom = 256.0
 
 [node name="Plant" type="TextureRect" parent="ImagesContainer/Plant"]
+modulate = Color(1, 1, 1, 0.705882)
 offset_right = 256.0
 offset_bottom = 256.0
 texture = ExtResource("5_oik47")
@@ -83,6 +84,7 @@ offset_right = 2419.0
 offset_bottom = 516.0
 
 [node name="Fire" type="TextureRect" parent="ImagesContainer/Fire"]
+modulate = Color(1, 1, 1, 0.705882)
 offset_right = 256.0
 offset_bottom = 256.0
 texture = ExtResource("6_qswdb")
@@ -103,6 +105,7 @@ offset_right = 2419.0
 offset_bottom = 776.0
 
 [node name="Ice" type="TextureRect" parent="ImagesContainer/Ice"]
+modulate = Color(1, 1, 1, 0.705882)
 offset_right = 256.0
 offset_bottom = 256.0
 texture = ExtResource("7_7vktm")
@@ -122,6 +125,7 @@ offset_right = 2419.0
 offset_bottom = 1036.0
 
 [node name="Rock" type="TextureRect" parent="ImagesContainer/Rock"]
+modulate = Color(1, 1, 1, 0.705882)
 offset_right = 256.0
 offset_bottom = 256.0
 texture = ExtResource("8_qp34e")
@@ -141,6 +145,7 @@ offset_right = 2419.0
 offset_bottom = 1296.0
 
 [node name="Wind" type="TextureRect" parent="ImagesContainer/Wind"]
+modulate = Color(1, 1, 1, 0.705882)
 offset_right = 256.0
 offset_bottom = 256.0
 texture = ExtResource("9_evob6")
@@ -160,6 +165,7 @@ offset_right = 2419.0
 offset_bottom = 1556.0
 
 [node name="Bolt" type="TextureRect" parent="ImagesContainer/Bolt"]
+modulate = Color(1, 1, 1, 0.705882)
 offset_right = 256.0
 offset_bottom = 256.0
 texture = ExtResource("10_shnc0")
