@@ -4,9 +4,8 @@ extends Node2D
 const MOV_DIST: int = 32
 const MOV_TIME: float = 0.3
 
-@onready var game_level = get_parent().get_parent()
-@onready var map_rows = game_level.MAP_SIZE.y
-@onready var map_cols = game_level.MAP_SIZE.x
+@onready var map_rows = get_parent().get_parent().get_node("LevelManager").MAP_SIZE.y
+@onready var map_cols = get_parent().get_parent().get_node("LevelManager").MAP_SIZE.x
 var astar = AStar2D.new()
 
 var mov_num: int = 2
@@ -86,7 +85,6 @@ func getPathToPlayer(player_pos: Vector2i, obstacles_positions=[]):
 	# Returns a list of points (by id) that connect the enemy to the player
 	var enemy_pos_id  = getIdFromCoordinates(current_pos.x, current_pos.y)
 	var player_pos_id = getIdFromCoordinates(player_pos.x, player_pos.y)
-	print("Enemy pos = {e} -- Player Pos = {p}".format({"e": enemy_pos_id, "p": player_pos_id}))
 	var path = astar.get_point_path(enemy_pos_id, player_pos_id)
 	return(path)
 
@@ -115,9 +113,6 @@ func act(player_pos: Vector2i, obstacles: Array):
 		unfreeze()
 		getAvailablePoints(map_rows, map_cols, obstacles)
 		var path_coordinates = getPathToPlayer(player_pos)
-		print(current_pos)
-		print(player_pos)
-		print(path_coordinates)
 		var moves_made = min(mov_num, len(path_coordinates)-1)
 		
 		var movements_to_be_made = []
@@ -128,7 +123,6 @@ func act(player_pos: Vector2i, obstacles: Array):
 			x_mov = path_coordinates[i].x - path_coordinates[i-1].x
 			y_mov = path_coordinates[i].y - path_coordinates[i-1].y
 			movements_to_be_made.append(Vector2i(x_mov, y_mov))
-		
 		
 		for movement in movements_to_be_made:
 			move(movement)

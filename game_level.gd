@@ -1,6 +1,6 @@
 extends Node
 
-#const MAP_SIZE = Vector2i(27, 17)
+
 var MAP_SIZE: Vector2i
 
 @export var PlayerScn: PackedScene
@@ -12,8 +12,9 @@ var game_level = 1
 
 
 func _ready():
+	$LevelManager.instantiateNewLevel("level_1")
+	
 	Player = PlayerScn.instantiate()
-	var offset = Vector2i.ONE * Player.MOV_DIST/2
 	MAP_SIZE = $LevelManager.MAP_SIZE
 	Player.offset = MAP_SIZE
 	Player.target_pos = initial_pos
@@ -21,21 +22,6 @@ func _ready():
 	add_child(Player)
 	
 	Player.connect("moved", self.next_turn)
-	
-#	spawn_enemies()
-
-
-func spawn_enemies():
-	var enemy = load("res://enemies/base_enemy.tscn")
-	
-	for i in range(3):
-		var enemy_inst = enemy.instantiate()
-		var pos = Vector2i(randi_range(1, MAP_SIZE.x), randi_range(1, MAP_SIZE.y))
-		
-		while pos == Player.target_pos:
-			pos = Vector2i(randi_range(1, MAP_SIZE.x + 1), randi_range(1, MAP_SIZE.y + 1))
-		enemy_inst.spawn(pos)
-		$Enemies.add_child(enemy_inst)
 
 
 func get_enemies():
@@ -89,7 +75,12 @@ func next_turn() -> void:
 			$EnemyActionDelay.start()
 			await $EnemyActionDelay.timeout
 	
+	for child in $Plants.get_children():
+		child.act(Player.target_pos, obstacles)
+	
 	if $Enemies.get_child_count() == 0:
-#		spawn_enemies()
 		game_level += 1
-		$LevelManager.instantiateNewLevel("level_" + str(game_level))
+		if game_level <= 2:
+			$LevelManager.instantiateNewLevel("level_" + str(game_level))
+		else:
+			pass

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://8e00oxt076xk"]
+[gd_scene load_steps=7 format=3 uid="uid://8e00oxt076xk"]
 
 [ext_resource type="Script" path="res://powers/ice.gd" id="1_j71gl"]
 [ext_resource type="Texture2D" uid="uid://d4dj4vsyjxw8p" path="res://powers/ice_fx.png" id="2_4jslk"]
+[ext_resource type="AudioStream" uid="uid://deu0wrrfpgg18" path="res://powers/ice.wav" id="3_fr6us"]
 
 [sub_resource type="Animation" id="Animation_7hw13"]
 length = 0.001
@@ -100,3 +101,7 @@ autoplay = "spin"
 libraries = {
 "": SubResource("AnimationLibrary_33oro")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fr6us")
+autoplay = true

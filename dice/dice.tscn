@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dumqyv05watte"]
+[gd_scene load_steps=10 format=3 uid="uid://dumqyv05watte"]
 
 [ext_resource type="Script" path="res://dice/dice.gd" id="1_so3cc"]
 [ext_resource type="PackedScene" uid="uid://ckv3marudby42" path="res://powers/fire.tscn" id="2_7xr16"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dvi12bx5tt4os" path="res://powers/bolt.tscn" id="5_cdb5r"]
 [ext_resource type="PackedScene" uid="uid://cfgxeoe0tqp8m" path="res://powers/plant.tscn" id="5_m7vtx"]
 [ext_resource type="Texture2D" uid="uid://cph46ads3un8s" path="res://dice/bolt.png" id="6_g0xlq"]
+[ext_resource type="PackedScene" uid="uid://c0bogmxvcmjnw" path="res://powers/air.tscn" id="7_tneug"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t352r"]
 size = Vector2(10, 10)
@@ -18,6 +19,7 @@ IceScn = ExtResource("3_vhilq")
 RockScn = ExtResource("4_gbae3")
 PlantScn = ExtResource("5_m7vtx")
 BoltScn = ExtResource("5_cdb5r")
+AirScn = ExtResource("7_tneug")
 
 [node name="Secondary" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)
@@ -65,8 +67,8 @@ current = true
 zoom = Vector2(1.2, 1.2)
 limit_left = 0
 limit_top = 0
-limit_right = 1024
-limit_bottom = 600
+limit_right = 1362
+limit_bottom = 1024
 smoothing_enabled = true
 
 [node name="MovTimer" type="Timer" parent="."]

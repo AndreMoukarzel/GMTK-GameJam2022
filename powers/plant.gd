@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var duration: int = 3
 var GameLevel
 var my_pos
