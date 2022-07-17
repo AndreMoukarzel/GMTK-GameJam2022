@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b6amlwekwlodb"
-path="res://.godot/imported/type_writer.ttf-4ed0b59442bf87062f2da3d98050478b.fontdata"
+path="res://.godot/imported/type_writer.ttf-8bd885ee2f15d1fabb37f79107a634aa.fontdata"
 
 [deps]
 
-source_file="res://fonts/FONTE-type_writer/type_writer.ttf"
-dest_files=["res://.godot/imported/type_writer.ttf-4ed0b59442bf87062f2da3d98050478b.fontdata"]
+source_file="res://fonts/type_writer.ttf"
+dest_files=["res://.godot/imported/type_writer.ttf-8bd885ee2f15d1fabb37f79107a634aa.fontdata"]
 
 [params]
 

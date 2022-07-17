@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=3 uid="uid://bp37emwehbav"]
+
+[ext_resource type="Script" path="res://Menus/victory.gd" id="1_fo4sq"]
+[ext_resource type="Texture2D" uid="uid://8a5druh8gim4" path="res://Menus/victory.png" id="1_kswyf"]
+[ext_resource type="AudioStream" uid="uid://bh0bn6uw4g8dm" path="res://Menus/victory.mp3" id="2_6smyq"]
+[ext_resource type="Texture2D" uid="uid://c3xu3cbh7xuyg" path="res://Menus/credits.png" id="3_ogrui"]
+[ext_resource type="FontFile" uid="uid://b6amlwekwlodb" path="res://fonts/type_writer.ttf" id="4_si7tm"]
+
+[sub_resource type="Animation" id="Animation_gi56l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Credits:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(157, 614)]
+}
+
+[sub_resource type="Animation" id="Animation_18h51"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qsob8"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x75hs"]
+resource_name = "credits"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(157, 614), Vector2(157, 94)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rbba8"]
+_data = {
+"RESET": SubResource("Animation_gi56l"),
+"credits": SubResource("Animation_x75hs"),
+"fade_in": SubResource("Animation_18h51"),
+"fade_out": SubResource("Animation_qsob8")
+}
+
+[node name="Victory" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_fo4sq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("1_kswyf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1024.0
+offset_bottom = 600.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fade_out"
+libraries = {
+"": SubResource("AnimationLibrary_rbba8")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6smyq")
+
+[node name="Credits" type="TextureRect" parent="."]
+offset_left = 157.0
+offset_top = 614.0
+offset_right = 2077.0
+offset_bottom = 1694.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_ogrui")
+
+[node name="YouWin" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 184.0
+offset_right = 393.0
+offset_bottom = 214.0
+rotation = -0.425964
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_si7tm")
+theme_override_font_sizes/font_size = 26
+text = "You won your freedom"
+
+[node name="ThankYou" type="Label" parent="."]
+offset_left = 728.0
+offset_top = 53.0
+offset_right = 1109.0
+offset_bottom = 113.0
+rotation = 0.478014
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_si7tm")
+theme_override_font_sizes/font_size = 26
+text = "Thank you for playing
+our game!"
+horizontal_alignment = 1
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

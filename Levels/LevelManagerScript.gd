@@ -18,7 +18,6 @@ func instantiateNewLevel(level_name):
 	wall_positions = level_values["wall_positions"]
 	enemies = level_values["wall_positions"]
 	get_parent().MAP_SIZE = MAP_SIZE
-	var player_pos = level.player_initial_position
 	var e
 	var e_pos
 	var e_inst

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgmnfjxqby7jk"
-path="res://.godot/imported/8.png-7c449285938833680189c76634541482.ctex"
+uid="uid://8a5druh8gim4"
+path="res://.godot/imported/victory.png-cedfec71b2238c027ade7a3dc34c0df1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menus/Botoes/Botoes/8.png"
-dest_files=["res://.godot/imported/8.png-7c449285938833680189c76634541482.ctex"]
+source_file="res://Menus/victory.png"
+dest_files=["res://.godot/imported/victory.png-cedfec71b2238c027ade7a3dc34c0df1.ctex"]
 
 [params]
 

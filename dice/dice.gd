@@ -151,9 +151,29 @@ func damage(value: int=1):
 			side_to_break = randi_range(1, 6)
 		sides_broken.append(int2power(side_to_break))
 		$DamageSfx.play()
+	_update_projected_modulates()
 	
 	if len(sides_broken) >= 6:
-		queue_free()
+		get_parent().fade_out()
+
+
+func _update_projected_modulates():
+	if int2power(sides['east']) in sides_broken:
+		$ProjectedMoves/Left.modulate = Color(0.1, 0.1, 0.1)
+	else:
+		$ProjectedMoves/Left.modulate = Color(1, 1, 1)
+	if int2power(sides['west']) in sides_broken:
+		$ProjectedMoves/Right.modulate = Color(0.1, 0.1, 0.1)
+	else:
+		$ProjectedMoves/Right.modulate = Color(1, 1, 1)
+	if int2power(sides['south']) in sides_broken:
+		$ProjectedMoves/Up.modulate = Color(0.1, 0.1, 0.1)
+	else:
+		$ProjectedMoves/Up.modulate = Color(1, 1, 1)
+	if int2power(sides['north']) in sides_broken:
+		$ProjectedMoves/Down.modulate = Color(0.1, 0.1, 0.1)
+	else:
+		$ProjectedMoves/Down.modulate = Color(1, 1, 1)
 
 
 func _update_projected_moves() -> void:
@@ -165,6 +185,8 @@ func _update_projected_moves() -> void:
 	$ProjectedMoves/Right.show()
 	$ProjectedMoves/Up.show()
 	$ProjectedMoves/Down.show()
+	
+	_update_projected_modulates()
 	
 	if target_pos.x - 1 == 0:
 		$ProjectedMoves/Left.hide()
@@ -181,10 +203,11 @@ func _animate_dice_roll(direction: Vector2i) -> void:
 	var top_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	var sec_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	
+	$MoveSfx.play()
 	$Top.modulate = Color(1, 1, 1)
 	$Secondary.texture = load("res://dice/" + int2power(sides['top']) + ".png")
 	if int2power(sides['top']) in sides_broken:
-		$Secondary.modulate = Color(0.2, 0.2, 0.2)
+		$Secondary.modulate = Color(0.1, 0.1, 0.1)
 	else:
 		$Secondary.modulate = Color(1, 1, 1)
 	
@@ -212,7 +235,7 @@ func _animate_dice_roll(direction: Vector2i) -> void:
 	$Top.position = Vector2(0, 0)
 	$Top.texture = load("res://dice/" + int2power(sides['top']) + ".png")
 	if int2power(sides['top']) in sides_broken:
-		$Top.modulate = Color(0.2, 0.2, 0.2)
+		$Top.modulate = Color(0.1, 0.1, 0.1)
 	else:
 		$Top.modulate = Color(1, 1, 1)
 	

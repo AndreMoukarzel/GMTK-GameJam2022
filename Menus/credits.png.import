@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgt1b5xw03fc3"
-path="res://.godot/imported/7.png-7c8f431a942d42d976a9f1ac809917c8.ctex"
+uid="uid://c3xu3cbh7xuyg"
+path="res://.godot/imported/credits.png-8303e950907b9a1a959d339886e9c6a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menus/Botoes/Botoes/7.png"
-dest_files=["res://.godot/imported/7.png-7c8f431a942d42d976a9f1ac809917c8.ctex"]
+source_file="res://Menus/credits.png"
+dest_files=["res://.godot/imported/credits.png-8303e950907b9a1a959d339886e9c6a2.ctex"]
 
 [params]
 
