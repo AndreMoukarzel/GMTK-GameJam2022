@@ -32,6 +32,7 @@ var sides: Dictionary = {
 }
 var sides_to_powers = ["bolt", "rock", "plant", "wind", "ice", "fire"]
 var projections_tween: Tween
+var can_move: bool = true
 
 
 func _ready():
@@ -41,7 +42,7 @@ func _ready():
 
 
 func _input(event) -> void:
-	if $MovTimer.is_stopped():
+	if can_move:
 		var obstacles_positions = get_parent().obstacles
 		var enemy_positions = get_parent().get_enemies_coordinates()
 		if event.is_action_pressed("ui_up"):
@@ -107,6 +108,7 @@ func int2power(value: int) -> String:
 
 
 func move(direction: Vector2i, obstacles: Array, enemy_positions: Array) -> void:
+	can_move = false
 	var mov_tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
 	
 	target_pos += direction

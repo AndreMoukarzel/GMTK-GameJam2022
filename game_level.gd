@@ -85,3 +85,5 @@ func next_turn() -> void:
 			$LevelManager.instantiateNewLevel("level_" + str(game_level))
 		else:
 			pass
+	
+	Player.can_move = true
