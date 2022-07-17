@@ -225,7 +225,7 @@ func _bolt():
 	
 	Bolt.global_position = get_absolute_pos()
 	get_parent().add_child(Bolt)
-	Bolt.fly_to(enemy, enemy.get_absolute_pos())
+	Bolt.fly_to(enemy)
 
 
 func _air(direction: Vector2i) -> void:
