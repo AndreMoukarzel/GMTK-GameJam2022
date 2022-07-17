@@ -14,7 +14,7 @@ func _on_area_2d_area_entered(area):
 func _die():
 	var twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	
-	twn.tween_property(self, "scale", Vector2(2, 2), DIE_TIME)
-	twn.tween_property(self, "modulate", Color(1, 1, 1, 0), DIE_TIME)
+	twn.tween_property($Sprite2D, "scale", Vector2(2, 2), DIE_TIME)
+	twn.tween_property($Sprite2D, "modulate", Color(1, 1, 1, 0), DIE_TIME)
 	await twn.finished
 	queue_free()

@@ -1,12 +1,102 @@
-[gd_scene load_steps=2 format=3 uid="uid://8e00oxt076xk"]
+[gd_scene load_steps=6 format=3 uid="uid://8e00oxt076xk"]
 
 [ext_resource type="Script" path="res://powers/ice.gd" id="1_j71gl"]
+[ext_resource type="Texture2D" uid="uid://d4dj4vsyjxw8p" path="res://powers/ice_fx.png" id="2_4jslk"]
+
+[sub_resource type="Animation" id="Animation_r4ma5"]
+resource_name = "spin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5), Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 4.36332]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7hw13"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.784314)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_33oro"]
+_data = {
+"RESET": SubResource("Animation_7hw13"),
+"spin": SubResource("Animation_r4ma5")
+}
 
 [node name="Ice" type="Node2D"]
-modulate = Color(1, 1, 1, 0.501961)
+modulate = Color(1, 1, 1, 0.784314)
 script = ExtResource("1_j71gl")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0, 0.67451, 1, 1)
-polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-metadata/_edit_lock_ = true
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4jslk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spin"
+libraries = {
+"": SubResource("AnimationLibrary_33oro")
+}

@@ -197,6 +197,7 @@ func _fire():
 	var Fire = FireScn.instantiate()
 	Fire.global_position = global_position
 	get_parent().add_child(Fire)
+	Fire.burn(target_pos)
 
 
 func _ice():
@@ -219,7 +220,7 @@ func _rock(direction: Vector2i) -> void:
 
 
 func _bolt():
-	var enemy = get_parent().get_closest_enemy(target_pos)
+	var enemy = get_parent().get_most_distant_enemy(target_pos)
 	var Bolt = BoltScn.instantiate()
 	
 	Bolt.global_position = get_absolute_pos()

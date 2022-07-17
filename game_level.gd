@@ -40,7 +40,7 @@ func get_enemies():
 	for child in $Enemies.get_children():
 		if "duration" in child: # Is a plant, not an enemy
 			pass
-		else:
+		elif is_instance_valid(child):
 			enemies.append(child)
 	return enemies
 

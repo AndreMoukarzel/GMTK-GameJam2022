@@ -1,7 +1,12 @@
 extends Node2D
 
-const DAMAGE = 2
+const RANGE: int = 2
+const DAMAGE: int = 2
 
 
-func _on_area_2d_area_entered(area):
-	area.get_parent().damage(DAMAGE)
+func burn(player_pos: Vector2i):
+	var enemies = get_parent().get_enemies()
+	
+	for en in enemies:
+		if Vector2(player_pos).distance_to(en.current_pos) <= RANGE:
+			en.damage(DAMAGE)
