@@ -18,7 +18,7 @@ func grow(pos: Vector2i, pos_modifier: int, obstacles: Array):
 		my_pos = pos
 
 
-func act(player_pos: Vector2i, obstacles: Array):
+func act(_player_pos: Vector2i, _obstacles: Array):
 	duration -= 1
 	if duration <= 0:
 		GameLevel.obstacles.remove_at(GameLevel.obstacles.find(my_pos))

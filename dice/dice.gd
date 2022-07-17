@@ -203,7 +203,8 @@ func _ice():
 	var enemy = get_parent().get_closest_enemy(target_pos)
 	var Ice = IceScn.instantiate()
 	
-	enemy.freeze()
+	if is_instance_valid(enemy):
+		enemy.freeze()
 	
 	Ice.global_position = get_absolute_pos()
 	get_parent().add_child(Ice)
