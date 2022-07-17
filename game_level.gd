@@ -87,3 +87,9 @@ func next_turn() -> void:
 			pass
 	
 	Player.can_move = true
+
+
+func fade_out():
+	$AnimationPlayer.play("fade_out")
+	await get_tree().create_timer(4).timeout
+	get_tree().change_scene("res://Menus/defeat.tscn")

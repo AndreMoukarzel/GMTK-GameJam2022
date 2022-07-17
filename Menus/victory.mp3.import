@@ -1,0 +1,16 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bh0bn6uw4g8dm"
+path="res://.godot/imported/victory.mp3-4187e4e0e281789c3031330ccb9dcb95.mp3str"
+
+[deps]
+
+source_file="res://Menus/victory.mp3"
+dest_files=["res://.godot/imported/victory.mp3-4187e4e0e281789c3031330ccb9dcb95.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0

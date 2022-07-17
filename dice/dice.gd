@@ -153,7 +153,7 @@ func damage(value: int=1):
 		$DamageSfx.play()
 	
 	if len(sides_broken) >= 6:
-		queue_free()
+		get_parent().fade_out()
 
 
 func _update_projected_moves() -> void:
