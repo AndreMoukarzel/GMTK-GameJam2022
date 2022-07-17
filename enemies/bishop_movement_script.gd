@@ -49,6 +49,5 @@ func getPathToPlayer(player_pos: Vector2i, obstacles_positions=[]):
 	
 	var enemy_pos_id  = getIdFromCoordinates(current_pos.x, current_pos.y)
 	var player_pos_id = getIdFromCoordinates(target_player_pos.x,  target_player_pos.y)
-	print("Enemy pos = {e} -- Player Pos = {p}".format({"e": enemy_pos_id, "p": player_pos_id}))
 	var path = astar.get_point_path(enemy_pos_id, player_pos_id)
 	return(path)

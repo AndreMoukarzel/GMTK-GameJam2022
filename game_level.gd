@@ -16,6 +16,7 @@ func _ready():
 	
 	Player = PlayerScn.instantiate()
 	MAP_SIZE = $LevelManager.MAP_SIZE
+	obstacles += $LevelManager.wall_positions
 	Player.offset = MAP_SIZE
 	Player.target_pos = initial_pos
 	Player.position = Player.get_absolute_pos()
@@ -84,3 +85,5 @@ func next_turn() -> void:
 			$LevelManager.instantiateNewLevel("level_" + str(game_level))
 		else:
 			pass
+	
+	Player.can_move = true

@@ -8,13 +8,13 @@
 [node name="GameLevel" type="Node"]
 script = ExtResource("1_5p1f5")
 PlayerScn = ExtResource("2_2pgwh")
-initial_pos = Vector2i(19, 15)
+initial_pos = Vector2i(15, 11)
 
 [node name="Background" type="TextureRect" parent="."]
 show_behind_parent = true
 offset_right = 2732.0
 offset_bottom = 2048.0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.351, 0.351)
 texture = ExtResource("4_y5hpi")
 
 [node name="Enemies" type="Node" parent="."]
@@ -22,7 +22,7 @@ texture = ExtResource("4_y5hpi")
 [node name="Plants" type="Node" parent="."]
 
 [node name="EnemyActionDelay" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
 [node name="LevelManager" type="Node" parent="."]

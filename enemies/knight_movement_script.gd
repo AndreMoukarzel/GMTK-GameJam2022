@@ -1,6 +1,24 @@
 extends "res://enemies/base_enemy.gd"
 
 
+func move(direction: Vector2i) -> Tween:
+	var mov_tween = create_tween().set_trans(Tween.TRANS_CIRC)
+	
+	mov_tween.tween_property($Sprite2D, "scale", Vector2(1.5, 1.5), MOV_TIME)
+	if abs(direction.x) == 2:
+		var destination = current_pos + Vector2i(direction.x, 0)
+		mov_tween.chain().tween_property(self, "position", Vector2(destination * MOV_DIST), MOV_TIME/2)
+	else:
+		var destination = current_pos + Vector2i(0, direction.y)
+		mov_tween.chain().tween_property(self, "position", Vector2(destination * MOV_DIST), MOV_TIME/2)
+	current_pos += direction
+	mov_tween.chain().tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME/2)
+	
+	mov_tween.chain().tween_property($Sprite2D, "scale", Vector2(1, 1), MOV_TIME)
+
+	return mov_tween
+
+
 func getAvailablePoints(rows, cols, obstacles_positions):
 	# the horse moves in an L shape, and so we will be connecting the points by this pattern
 	var i = 1
@@ -40,6 +58,7 @@ func getAvailablePoints(rows, cols, obstacles_positions):
 						astar.connect_points(i, neighbour_cell_id)
 			i += 1
 
+
 func getRandomNeighbourCell(position: Vector2i, obstacles_positions):
 	var possible_moves = [
 		Vector2i(-1, 0),
@@ -59,6 +78,5 @@ func getPathToPlayer(player_pos: Vector2i, obstacles_positions=[]):
 	# Returns a list of points (by id) that connect the enemy to the player
 	var enemy_pos_id  = getIdFromCoordinates(current_pos.x, current_pos.y)
 	var player_pos_id = getIdFromCoordinates(player_pos.x,  player_pos.y)
-	print("Enemy pos = {e} -- Player Pos = {p}".format({"e": enemy_pos_id, "p": player_pos_id}))
 	var path = astar.get_point_path(enemy_pos_id, player_pos_id)
 	return(path)

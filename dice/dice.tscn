@@ -67,8 +67,8 @@ current = true
 zoom = Vector2(1.2, 1.2)
 limit_left = 0
 limit_top = 0
-limit_right = 1362
-limit_bottom = 1024
+limit_right = 958
+limit_bottom = 718
 smoothing_enabled = true
 
 [node name="MovTimer" type="Timer" parent="."]

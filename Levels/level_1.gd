@@ -3,24 +3,12 @@ extends "res://Levels/LevelTemplate.gd"
 
 func update_values():
 	level = 1
-	MAP_SIZE = Vector2i(42, 31)
-	wall_positions = [
-		Vector2i(12, 8),
-		Vector2i(13, 8),
-		Vector2i(14, 8),
-		Vector2i(12, 9),
-		Vector2i(13, 9),
-		Vector2i(14, 9),
-		Vector2i(12, 10),
-		Vector2i(13, 10),
-		Vector2i(14, 10)
-	]
+	MAP_SIZE = Vector2i(29, 22)
+	wall_positions = []
 	enemies = [
 		["base_enemy", Vector2i(1, 5)]
 		, ["base_enemy", Vector2i(16, 13)]
 		, ["base_enemy", Vector2i(1, 17)]
-		, ["bishop", Vector2i(10, 17)]
-		, ['knight', Vector2i(10, 7)]
 	]
 	var final_return = {
 		"level_number": level,

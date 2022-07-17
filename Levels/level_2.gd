@@ -3,18 +3,8 @@ extends "res://Levels/LevelTemplate.gd"
 # Called when the node enters the scene tree for the first time.
 func update_values():
 	level = 2
-	MAP_SIZE = Vector2i(42, 31)
-	wall_positions = [
-		Vector2i(12, 8),
-		Vector2i(13, 8),
-		Vector2i(14, 8),
-		Vector2i(12, 9),
-		Vector2i(13, 9),
-		Vector2i(14, 9),
-		Vector2i(12, 10),
-		Vector2i(13, 10),
-		Vector2i(14, 10)
-	]
+	MAP_SIZE = Vector2i(29, 22)
+	wall_positions = []
 	enemies = [
 		["base_enemy", Vector2i(1, 5)],
 		["base_enemy", Vector2i(1, 13)],
