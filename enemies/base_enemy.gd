@@ -60,43 +60,45 @@ func _on_area_2d_area_entered(area):
 
 func getAvailablePoints(rows, cols, obstacles_positions):
 	var i = 1
+	var neighbour_cell_id: int
 	
-	var neighbour_cell_id = 0
-	for r in range(1, rows+1):
-		for c in range(1, cols+1):
-			if Vector2i(r, c) not in obstacles_positions:
-				astar.add_point(i, Vector2i(r, c))
+	for y in range(1, rows+1):
+		for x in range(1, cols+1):
+			if Vector2i(x, y) not in obstacles_positions:
+				astar.add_point(i, Vector2i(x, y))
 			i += 1
+			
 	i = 1
-	for r in range(1, rows+1):
-		for c in range(1, cols+1):
-			if Vector2i(r, c) not in obstacles_positions:
+	for y in range(1, rows+1):
+		for x in range(1, cols+1):
+			if Vector2i(x, y) not in obstacles_positions:
 				for j in [-1, 1]:
-					if (r + j < map_rows and r + j > 0 and Vector2i(r+j, c) not in obstacles_positions):
-						neighbour_cell_id = getIdFromCoordinates(r + j, c)
+					if (x+j <= map_cols and x+j > 0 and Vector2i(x+j, y) not in obstacles_positions):
+						neighbour_cell_id = getIdFromCoordinates(x+j, y)
 						astar.connect_points(i, neighbour_cell_id)
-					if (c + j < map_cols and c + j > 0 and Vector2i(r, c+j) not in obstacles_positions):
-						neighbour_cell_id = getIdFromCoordinates(r, c + j)
+					if (y+j <= map_rows and y+j > 0 and Vector2i(x, y+j) not in obstacles_positions):
+						neighbour_cell_id = getIdFromCoordinates(x, y+j)
 						astar.connect_points(i, neighbour_cell_id)
 			i += 1
 
 
 func getPathToPlayer(player_pos: Vector2i):
 	# Returns a list of points (by id) that connect the enemy to the player
-	var enemy_pos_id  = getIdFromCoordinates(current_pos.y, current_pos.x)
-	var player_pos_id = getIdFromCoordinates(player_pos.y, player_pos.x)
+	var enemy_pos_id  = getIdFromCoordinates(current_pos.x, current_pos.y)
+	var player_pos_id = getIdFromCoordinates(player_pos.x, player_pos.y)
+	print("Enemy pos = {e} -- Player Pos = {p}".format({"e": enemy_pos_id, "p": player_pos_id}))
 	var path = astar.get_point_path(enemy_pos_id, player_pos_id)
 	return(path)
 
 
-func getIdFromCoordinates(row: int, col: int):
-	return((row-1) * map_cols + col)
+func getIdFromCoordinates(x: int, y: int):
+	return((y-1) * map_cols + x)
 
 
 func getCoordinatesFromId(id: int) -> Vector2i:
-	var row: int = floor(id/map_cols) + 1
-	var col: int = id % map_cols
-	return(Vector2i(row + 1, col))
+	var y: int = floor(id/map_cols) + 1
+	var x: int = id % map_cols
+	return(Vector2i(x, y))
 
 
 func returnPathCoordinates(point_ids: Array):
@@ -111,19 +113,23 @@ func act(player_pos: Vector2i, obstacles: Array):
 		is_frozen = false
 	else:
 		unfreeze()
-		# Implementar: pegar os obstãculos existentes no mapa
 		getAvailablePoints(map_rows, map_cols, obstacles)
 		var path_coordinates = getPathToPlayer(player_pos)
+		print(current_pos)
+		print(player_pos)
+		print(path_coordinates)
 		var moves_made = min(mov_num, len(path_coordinates)-1)
-
+		
 		var movements_to_be_made = []
-		var vert_mov = 0
-		var hor_mov  = 0
-
-		for i in range(1, moves_made + 1):
-			hor_mov = path_coordinates[i][1] - path_coordinates[i-1][1]
-			vert_mov = path_coordinates[i][0] - path_coordinates[i-1][0]
-			movements_to_be_made.append(Vector2i(hor_mov, vert_mov))
+		var x_mov = 0
+		var y_mov  = 0
+		
+		for i in range(1, moves_made+1):
+			x_mov = path_coordinates[i].x - path_coordinates[i-1].x
+			y_mov = path_coordinates[i].y - path_coordinates[i-1].y
+			movements_to_be_made.append(Vector2i(x_mov, y_mov))
+		
 		
 		for movement in movements_to_be_made:
 			move(movement)
+

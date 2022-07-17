@@ -56,11 +56,12 @@ func get_closest_enemy(pos: Vector2i) -> Node2D:
 	return closest
 
 
-func get_enemies_coordinates():
+func get_enemies_coordinates(exclude=Vector2i.ZERO):
 	var enemies = get_enemies()
 	var positions = []
 	for en in enemies:
-		positions.append(en.current_pos)
+		if exclude == Vector2i.ZERO or en.current_pos != exclude:
+			positions.append(en.current_pos)
 	return positions
 
 
@@ -78,9 +79,9 @@ func get_most_distant_enemy(pos: Vector2i) -> Node2D:
 func next_turn() -> void:
 	$EnemyActionDelay.start()
 	await $EnemyActionDelay.timeout
-	for child in $Enemies.get_children():
+	for child in get_enemies():
 		if is_instance_valid(child):
-			var obstacles_and_enemies = obstacles + get_enemies_coordinates()
+			var obstacles_and_enemies = obstacles + get_enemies_coordinates(child.current_pos)
 			child.act(Player.target_pos, obstacles_and_enemies)
 			$EnemyActionDelay.start()
 			await $EnemyActionDelay.timeout
