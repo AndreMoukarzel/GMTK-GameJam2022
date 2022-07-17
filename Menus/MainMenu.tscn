@@ -1,32 +1,135 @@
-[gd_scene load_steps=2 format=3 uid="uid://6iudkyy282jb"]
+[gd_scene load_steps=11 format=3 uid="uid://dcc5u0cchux44"]
 
 [ext_resource type="Script" path="res://Menus/MainMenu.gd" id="1_0etre"]
+[ext_resource type="Texture2D" uid="uid://ggbrbgf6bmnv" path="res://Levels/background.png" id="2_62vwk"]
+[ext_resource type="Texture2D" uid="uid://bwclk17n8c8l0" path="res://Menus/Botoes/Botoes/5.png" id="4_nedki"]
+[ext_resource type="Texture2D" uid="uid://bym6plpeaymma" path="res://Menus/Botoes/Botoes/6.png" id="5_7836g"]
+[ext_resource type="Texture2D" uid="uid://bta4biih3p3st" path="res://dice/plant.png" id="5_oik47"]
+[ext_resource type="Texture2D" uid="uid://cljhfm4x81tn8" path="res://dice/fire.png" id="6_qswdb"]
+[ext_resource type="Texture2D" uid="uid://0gqh0bqy6qcv" path="res://dice/ice.png" id="7_7vktm"]
+[ext_resource type="Texture2D" uid="uid://xoxpkxrwtnlf" path="res://dice/rock.png" id="8_qp34e"]
+[ext_resource type="Texture2D" uid="uid://bda50fdbba6eh" path="res://dice/wind.png" id="9_evob6"]
+[ext_resource type="Texture2D" uid="uid://cph46ads3un8s" path="res://dice/bolt.png" id="10_shnc0"]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_0etre")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(256, 0)
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -132.0
-offset_right = 256.0
-grow_vertical = 0
+[node name="BackgroundImage" type="TextureRect" parent="."]
+clip_contents = true
+offset_left = -57.0
+offset_top = -146.0
+offset_right = 2675.0
+offset_bottom = 1902.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_62vwk")
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
-offset_right = 256.0
-offset_bottom = 64.0
-text = "Start"
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -756.0
+offset_top = -210.0
+offset_right = 2244.0
+offset_bottom = 790.0
+color = Color(0, 0, 0, 0.898039)
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
-offset_top = 68.0
-offset_right = 256.0
-offset_bottom = 132.0
-text = "Quit"
+[node name="StartButton" type="TextureButton" parent="."]
+offset_left = 36.0
+offset_top = 307.0
+offset_right = 1956.0
+offset_bottom = 1387.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("4_nedki")
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="QuitButton" type="TextureButton" parent="."]
+offset_left = 36.0
+offset_top = 408.0
+offset_right = 1956.0
+offset_bottom = 1238.0
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("5_7836g")
+
+[node name="ImagesContainer" type="VBoxContainer" parent="."]
+offset_left = 452.0
+offset_top = 284.0
+offset_right = 708.0
+offset_bottom = 1840.0
+scale = Vector2(0.15, 0.15)
+
+[node name="Plant" type="TextureRect" parent="ImagesContainer"]
+offset_right = 256.0
+offset_bottom = 256.0
+texture = ExtResource("5_oik47")
+
+[node name="Fire" type="TextureRect" parent="ImagesContainer"]
+offset_top = 260.0
+offset_right = 256.0
+offset_bottom = 516.0
+texture = ExtResource("6_qswdb")
+
+[node name="Ice" type="TextureRect" parent="ImagesContainer"]
+offset_top = 520.0
+offset_right = 256.0
+offset_bottom = 776.0
+texture = ExtResource("7_7vktm")
+
+[node name="Rock" type="TextureRect" parent="ImagesContainer"]
+offset_top = 780.0
+offset_right = 256.0
+offset_bottom = 1036.0
+texture = ExtResource("8_qp34e")
+
+[node name="Wind" type="TextureRect" parent="ImagesContainer"]
+offset_top = 1040.0
+offset_right = 256.0
+offset_bottom = 1296.0
+texture = ExtResource("9_evob6")
+
+[node name="Bolt" type="TextureRect" parent="ImagesContainer"]
+offset_top = 1300.0
+offset_right = 256.0
+offset_bottom = 1556.0
+texture = ExtResource("10_shnc0")
+
+[node name="TextsContainer" type="VBoxContainer" parent="."]
+offset_left = 544.0
+offset_top = 304.0
+offset_right = 916.0
+offset_bottom = 480.0
+
+[node name="PlantText" type="Label" parent="TextsContainer"]
+offset_right = 372.0
+offset_bottom = 26.0
+text = "Creates a wall that blocks enemies from passing"
+
+[node name="FireText" type="Label" parent="TextsContainer"]
+offset_top = 30.0
+offset_right = 372.0
+offset_bottom = 56.0
+text = "Burst of flames that burn all those close to you"
+
+[node name="IceText" type="Label" parent="TextsContainer"]
+offset_top = 60.0
+offset_right = 372.0
+offset_bottom = 86.0
+text = "Freeze an oponent, disabling its next move"
+
+[node name="RockText" type="Label" parent="TextsContainer"]
+offset_top = 90.0
+offset_right = 372.0
+offset_bottom = 116.0
+text = "Place a trap!"
+
+[node name="WindText" type="Label" parent="TextsContainer"]
+offset_top = 120.0
+offset_right = 372.0
+offset_bottom = 146.0
+text = "Move quickly and swiftly"
+
+[node name="BoltText" type="Label" parent="TextsContainer"]
+offset_top = 150.0
+offset_right = 372.0
+offset_bottom = 176.0
+text = "A powerful directed attack"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
