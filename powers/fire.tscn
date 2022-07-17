@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckv3marudby42"]
+[gd_scene load_steps=7 format=3 uid="uid://ckv3marudby42"]
 
 [ext_resource type="Script" path="res://powers/fire.gd" id="1_a2frf"]
 [ext_resource type="Texture2D" uid="uid://ko1l71gpmb16" path="res://powers/fire_fx.png" id="2_67py0"]
+[ext_resource type="AudioStream" uid="uid://b5iglc135sdat" path="res://powers/fire.wav" id="3_31fph"]
 
 [sub_resource type="Animation" id="Animation_mkkbb"]
 length = 0.001
@@ -760,3 +761,7 @@ autoplay = "expand"
 libraries = {
 "": SubResource("AnimationLibrary_6it7w")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_31fph")
+autoplay = true

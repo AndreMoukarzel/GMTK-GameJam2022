@@ -8,6 +8,3 @@ var wall_positions: Array
 var enemies: Array
 var path_to_enemies: String = "res://enemies/"
 var path_to_levels: String  = "res://Levels/"  
-
-func _ready():
-	pass

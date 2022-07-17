@@ -15,6 +15,7 @@ const PROJ_FADE_IN_TIME: float = 0.8
 @export var RockScn: PackedScene
 @export var PlantScn: PackedScene
 @export var BoltScn: PackedScene
+@export var AirScn: PackedScene
 #@export var can_move_to_broken: bool = true
 
 #var sides_broken = [false, false, false, false, false, false]
@@ -233,12 +234,24 @@ func _bolt():
 
 
 func _air(direction: Vector2i) -> void:
+	var Air1 = AirScn.instantiate()
+	var Air2 = AirScn.instantiate()
 	var mov_tween: Tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
+	var air_angle = Vector2(1, 0).angle_to(direction)
+	var old_pos = target_pos
 	
 	target_pos += 2 * direction
 	target_pos.x = clampi(target_pos.x, 1, offset.x)
 	target_pos.y = clampi(target_pos.y, 1, offset.y)
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME)
+	
+	Air1.position = (target_pos - direction) * MOV_DIST
+	Air1.rotation = air_angle
+	get_parent().add_child(Air1)
+	if Vector2(old_pos).distance_to(target_pos) == 2:
+		Air2.position = (target_pos - 2 * direction) * MOV_DIST
+		Air2.rotation = air_angle
+		get_parent().add_child(Air2)
 	await mov_tween.finished
 	emit_signal("dashed")
 
@@ -251,9 +264,9 @@ func _plant(direction: Vector2i, obstacles_positions: Array) -> void:
 	var plant2_pos = (target_pos + 2 * direction)
 	var plant3_pos = (target_pos + 2 * direction) + Vector2i(direction.y, direction.x)
 	
-	get_parent().get_node("Enemies").add_child(Plant1)
-	get_parent().get_node("Enemies").add_child(Plant2)
-	get_parent().get_node("Enemies").add_child(Plant3)
+	get_parent().get_node("Plants").add_child(Plant1)
+	get_parent().get_node("Plants").add_child(Plant2)
+	get_parent().get_node("Plants").add_child(Plant3)
 	Plant1.grow(plant1_pos, MOV_DIST, obstacles_positions)
 	Plant2.grow(plant2_pos, MOV_DIST, obstacles_positions)
 	Plant3.grow(plant3_pos, MOV_DIST,obstacles_positions)
