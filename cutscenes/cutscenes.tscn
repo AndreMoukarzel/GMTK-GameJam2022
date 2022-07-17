@@ -1,24 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8uebsbviom5e"]
+[gd_scene load_steps=10 format=3 uid="uid://b8uebsbviom5e"]
 
 [ext_resource type="Script" path="res://cutscenes/cutscenes.gd" id="1_l1obs"]
 [ext_resource type="Texture2D" uid="uid://62gjv643o5nw" path="res://cutscenes/1.png" id="1_uejac"]
 [ext_resource type="Texture2D" uid="uid://bphe7xxqspg1f" path="res://cutscenes/2.png" id="2_fvff7"]
 [ext_resource type="Texture2D" uid="uid://cwsq5i4hrqtrt" path="res://cutscenes/3.png" id="3_rg4vy"]
-
-[sub_resource type="Animation" id="Animation_qsob8"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
+[ext_resource type="AudioStream" uid="uid://c7exfj81v16k5" path="res://cutscenes/intro.mp3" id="5_nw1u5"]
 
 [sub_resource type="Animation" id="Animation_gi56l"]
 length = 0.001
@@ -48,6 +34,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qsob8"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rbba8"]
@@ -92,3 +93,7 @@ autoplay = "fade_out"
 libraries = {
 "": SubResource("AnimationLibrary_rbba8")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_nw1u5")
+autoplay = true
