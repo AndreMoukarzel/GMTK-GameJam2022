@@ -8,15 +8,15 @@ var my_pos
 func grow(pos: Vector2i, pos_modifier: int, obstacles: Array):
 	if pos in obstacles:
 		queue_free()
-	
-	GameLevel = get_parent().get_parent()
-	
-	if pos.x > 0 and pos.y > 0 and pos.x <= GameLevel.MAP_SIZE.x and pos.y <= GameLevel.MAP_SIZE.y:
-		global_position = pos * pos_modifier
-		GameLevel.obstacles.append(pos)
-		my_pos = pos
 	else:
-		queue_free()
+		GameLevel = get_parent().get_parent()
+		
+		if pos.x > 0 and pos.y > 0 and pos.x <= GameLevel.MAP_SIZE.x and pos.y <= GameLevel.MAP_SIZE.y:
+			global_position = pos * pos_modifier
+			GameLevel.obstacles.append(pos)
+			my_pos = pos
+		else:
+			queue_free()
 
 
 func act(_player_pos: Vector2i, _obstacles: Array):
