@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamSample"
 uid="uid://k41appmbn7ag"
-path="res://.godot/imported/Hit-FINAL.wav-972b69a77334532d630455d3cd613b12.sample"
+path="res://.godot/imported/hit.wav-dc96cc5bd3ca6a021c538842975ef4d2.sample"
 
 [deps]
 
-source_file="res://dice/Hit-FINAL.wav"
-dest_files=["res://.godot/imported/Hit-FINAL.wav-972b69a77334532d630455d3cd613b12.sample"]
+source_file="res://dice/hit.wav"
+dest_files=["res://.godot/imported/hit.wav-dc96cc5bd3ca6a021c538842975ef4d2.sample"]
 
 [params]
 
@@ -18,7 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=0
+edit/loop_mode=1
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=0
