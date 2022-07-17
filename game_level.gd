@@ -1,17 +1,20 @@
 extends Node
 
-const MAP_SIZE = Vector2i(27, 17)
+#const MAP_SIZE = Vector2i(27, 17)
+var MAP_SIZE: Vector2i
 
 @export var PlayerScn: PackedScene
 @export var initial_pos: Vector2i
 
 var Player
 var obstacles = []
+var game_level = 1
 
 
 func _ready():
 	Player = PlayerScn.instantiate()
 	var offset = Vector2i.ONE * Player.MOV_DIST/2
+	MAP_SIZE = $LevelManager.MAP_SIZE
 	Player.offset = MAP_SIZE
 	Player.target_pos = initial_pos
 	Player.position = Player.get_absolute_pos()
@@ -19,7 +22,7 @@ func _ready():
 	
 	Player.connect("moved", self.next_turn)
 	
-	spawn_enemies()
+#	spawn_enemies()
 
 
 func spawn_enemies():
@@ -87,4 +90,6 @@ func next_turn() -> void:
 			await $EnemyActionDelay.timeout
 	
 	if $Enemies.get_child_count() == 0:
-		spawn_enemies()
+#		spawn_enemies()
+		game_level += 1
+		$LevelManager.instantiateNewLevel("level_" + str(game_level))

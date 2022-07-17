@@ -1,7 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7vstrtkrh7y1"]
+[gd_scene load_steps=4 format=3 uid="uid://c7vstrtkrh7y1"]
 
 [ext_resource type="Script" path="res://game_level.gd" id="1_5p1f5"]
 [ext_resource type="PackedScene" uid="uid://dumqyv05watte" path="res://dice/dice.tscn" id="2_2pgwh"]
+
+[sub_resource type="GDScript" id="GDScript_7s626"]
+script/source = "extends Node
+
+var level_name: String
+var level_number: int
+var MAP_SIZE: Vector2i
+var wall_positions: Array
+var enemies: Array
+var path_to_enemies: String = \"res://enemies/\"
+var path_to_levels:  String  = \"res://Levels/\"
+var level_values
+
+
+func instantiateNewLevel(level_name):
+	var level_path = path_to_levels + level_name + \".gd\"
+	var level = load(level_path).new()
+	level_values = level.update_values()
+	level_number = level_values[\"level_number\"]
+	MAP_SIZE = level_values[\"MAP_SIZE\"]
+	wall_positions = level_values[\"wall_positions\"]
+	enemies = level_values[\"wall_positions\"]
+	get_parent().MAP_SIZE = MAP_SIZE
+	var player_pos = level.player_initial_position
+	var e
+	var e_pos
+	var e_inst
+	for enemy in level.enemies:
+		e = load(\"{path}{enemy_type}.tscn\".format({\"path\": path_to_enemies, \"enemy_type\": enemy[0]}))
+		e_inst = e.instantiate()
+		e_pos = enemy[1]
+		e_inst.spawn(e_pos)
+		get_parent().get_node(\"Enemies\").add_child(e_inst)
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	instantiateNewLevel(\"level_1\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="GameLevel" type="Node"]
 script = ExtResource("1_5p1f5")
@@ -13,3 +58,6 @@ initial_pos = Vector2i(5, 5)
 [node name="EnemyActionDelay" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="LevelManager" type="Node" parent="."]
+script = SubResource("GDScript_7s626")
