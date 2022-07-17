@@ -15,6 +15,5 @@ func fly_to(enemy: Node2D) -> void:
 		tween.tween_property(self, "position", Vector2(enemy.get_absolute_pos()), FLY_TIME)
 		await tween.finished
 		enemy.freeze_fx()
-		enemy.damage(1)
 	emit_signal("done")
 	queue_free()

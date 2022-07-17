@@ -6,7 +6,7 @@ const DIE_TIME: float = .5
 func _on_area_2d_area_entered(area):
 	var parent = area.get_parent()
 	if parent.has_method("damage"):
-		parent.damage(2)
+		parent.damage(3)
 		$Area2D.queue_free()
 		_die()
 
