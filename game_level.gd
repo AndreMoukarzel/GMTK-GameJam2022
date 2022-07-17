@@ -88,7 +88,7 @@ func next_turn() -> void:
 			mov_tween.tween_property(Player, "position", Vector2(Player.get_absolute_pos()), Player.MOV_TIME)
 			$LevelManager.instantiateNewLevel("level_" + str(game_level))
 		else:
-			pass
+			win()
 	
 	Player.can_move = true
 
@@ -97,3 +97,9 @@ func fade_out():
 	$AnimationPlayer.play("fade_out")
 	await get_tree().create_timer(1.5).timeout
 	get_tree().change_scene("res://Menus/defeat.tscn")
+
+
+func win():
+	$AnimationPlayer.play("fade_out")
+	await get_tree().create_timer(1.5).timeout
+	get_tree().change_scene("res://Menus/victory.tscn")
