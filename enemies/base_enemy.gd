@@ -82,7 +82,7 @@ func getAvailablePoints(rows, cols, obstacles_positions):
 			i += 1
 
 
-func getPathToPlayer(player_pos: Vector2i):
+func getPathToPlayer(player_pos: Vector2i, obstacles_positions=[]):
 	# Returns a list of points (by id) that connect the enemy to the player
 	var enemy_pos_id  = getIdFromCoordinates(current_pos.x, current_pos.y)
 	var player_pos_id = getIdFromCoordinates(player_pos.x, player_pos.y)

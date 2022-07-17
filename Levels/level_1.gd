@@ -19,6 +19,8 @@ func update_values():
 		["base_enemy", Vector2i(25, 3)]
 		, ["base_enemy", Vector2i(16, 13)]
 		, ["base_enemy", Vector2i(1, 17)]
+		, ["bishop", Vector2i(10, 17)]
+		, ['knight', Vector2i(10, 7)]
 	]
 	var final_return = {
 		"level_number": level,
