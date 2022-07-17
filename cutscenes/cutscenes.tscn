@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8uebsbviom5e"]
+[gd_scene load_steps=12 format=3 uid="uid://b8uebsbviom5e"]
 
 [ext_resource type="Script" path="res://cutscenes/cutscenes.gd" id="1_l1obs"]
 [ext_resource type="Texture2D" uid="uid://62gjv643o5nw" path="res://cutscenes/1.png" id="1_uejac"]
 [ext_resource type="Texture2D" uid="uid://bphe7xxqspg1f" path="res://cutscenes/2.png" id="2_fvff7"]
 [ext_resource type="Texture2D" uid="uid://cwsq5i4hrqtrt" path="res://cutscenes/3.png" id="3_rg4vy"]
+[ext_resource type="Texture2D" uid="uid://cwbwwaskxpux2" path="res://Menus/Teclas.png" id="5_58238"]
 [ext_resource type="AudioStream" uid="uid://c7exfj81v16k5" path="res://cutscenes/intro.mp3" id="5_nw1u5"]
+[ext_resource type="FontFile" uid="uid://b6amlwekwlodb" path="res://fonts/type_writer.ttf" id="6_sblq1"]
 
 [sub_resource type="Animation" id="Animation_gi56l"]
 length = 0.001
@@ -82,6 +84,26 @@ offset_right = 2011.0
 offset_bottom = 1131.0
 scale = Vector2(0.533, 0.533)
 texture = ExtResource("3_rg4vy")
+
+[node name="Arrows" type="TextureRect" parent="."]
+offset_left = 48.0
+offset_top = 15.0
+offset_right = 1968.0
+offset_bottom = 1095.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_58238")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Arrows"]
+offset_left = -740.0
+offset_top = 1180.0
+offset_right = 3740.0
+offset_bottom = 1463.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 70
+theme_override_fonts/font = ExtResource("6_sblq1")
+theme_override_font_sizes/font_size = 270
+text = "Use arrows to proceed"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1024.0

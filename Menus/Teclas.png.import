@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://47w6r6onh7l3"
-path="res://.godot/imported/main_menu_background.png-ad1b7d892973dab2c0db60e1907d58e7.ctex"
+uid="uid://cwbwwaskxpux2"
+path="res://.godot/imported/Teclas.png-a3c3e8cd30d37a45c89510041b81bb0e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://backgrounds/main_menu_background.png"
-dest_files=["res://.godot/imported/main_menu_background.png-ad1b7d892973dab2c0db60e1907d58e7.ctex"]
+source_file="res://Menus/Teclas.png"
+dest_files=["res://.godot/imported/Teclas.png-a3c3e8cd30d37a45c89510041b81bb0e.ctex"]
 
 [params]
 

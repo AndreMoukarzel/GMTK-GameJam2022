@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgmnfjxqby7jk"
-path="res://.godot/imported/8.png-7c449285938833680189c76634541482.ctex"
+path="res://.godot/imported/8.png-ad33ef6afdd037f14fac742f8308ffb3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menus/Botoes/Botoes/8.png"
-dest_files=["res://.godot/imported/8.png-7c449285938833680189c76634541482.ctex"]
+source_file="res://Menus/Botoes/8.png"
+dest_files=["res://.godot/imported/8.png-ad33ef6afdd037f14fac742f8308ffb3.ctex"]
 
 [params]
 
