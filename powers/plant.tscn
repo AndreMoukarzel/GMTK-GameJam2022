@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://cfgxeoe0tqp8m"]
+[gd_scene load_steps=2 format=3 uid="uid://cfgxeoe0tqp8m"]
+
+[ext_resource type="Script" path="res://powers/plant.gd" id="1_rtq53"]
 
 [node name="Plant" type="Node2D"]
+script = ExtResource("1_rtq53")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0.313726, 0.713726, 0.215686, 1)

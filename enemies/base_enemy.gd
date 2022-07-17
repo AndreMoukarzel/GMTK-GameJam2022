@@ -106,13 +106,13 @@ func returnPathCoordinates(point_ids: Array):
 	return (path_coordinates)
 
 
-func act(player_pos: Vector2i):
+func act(player_pos: Vector2i, obstacles: Array):
 	if is_frozen:
 		is_frozen = false
 	else:
 		unfreeze()
 		# Implementar: pegar os obstãculos existentes no mapa
-		getAvailablePoints(map_rows, map_cols, [])
+		getAvailablePoints(map_rows, map_cols, obstacles)
 		var path_coordinates = getPathToPlayer(player_pos)
 		var moves_made = min(mov_num, len(path_coordinates)-1)
 

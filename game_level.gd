@@ -6,6 +6,7 @@ const MAP_SIZE = Vector2i(27, 17)
 @export var initial_pos: Vector2i
 
 var Player
+var obstacles = []
 
 
 func _ready():
@@ -37,7 +38,10 @@ func spawn_enemies():
 func get_enemies():
 	var enemies = []
 	for child in $Enemies.get_children():
-		enemies.append(child)
+		if "duration" in child: # Is a plant, not an enemy
+			pass
+		else:
+			enemies.append(child)
 	return enemies
 
 
@@ -51,6 +55,14 @@ func get_closest_enemy(pos: Vector2i) -> Node2D:
 			closest = en
 	
 	return closest
+
+
+func get_enemies_coordinates():
+	var enemies = get_enemies()
+	var positions = []
+	for en in enemies:
+		positions.append(en.current_pos)
+	return positions
 
 
 func get_most_distant_enemy(pos: Vector2i) -> Node2D:
@@ -70,7 +82,8 @@ func next_turn() -> void:
 	await $EnemyActionDelay.timeout
 	for child in $Enemies.get_children():
 		if is_instance_valid(child):
-			child.act(Player.target_pos)
+			var obstacles_and_enemies = obstacles + get_enemies_coordinates()
+			child.act(Player.target_pos, obstacles_and_enemies)
 			$EnemyActionDelay.start()
 			await $EnemyActionDelay.timeout
 	

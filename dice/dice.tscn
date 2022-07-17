@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dumqyv05watte"]
+[gd_scene load_steps=9 format=3 uid="uid://dumqyv05watte"]
 
 [ext_resource type="Script" path="res://dice/dice.gd" id="1_so3cc"]
 [ext_resource type="PackedScene" uid="uid://ckv3marudby42" path="res://powers/fire.tscn" id="2_7xr16"]
 [ext_resource type="PackedScene" uid="uid://8e00oxt076xk" path="res://powers/ice.tscn" id="3_vhilq"]
 [ext_resource type="PackedScene" uid="uid://du5aqdlghke74" path="res://powers/rock.tscn" id="4_gbae3"]
 [ext_resource type="PackedScene" uid="uid://dvi12bx5tt4os" path="res://powers/bolt.tscn" id="5_cdb5r"]
+[ext_resource type="PackedScene" uid="uid://cfgxeoe0tqp8m" path="res://powers/plant.tscn" id="5_m7vtx"]
 [ext_resource type="Texture2D" uid="uid://cph46ads3un8s" path="res://dice/bolt.png" id="6_g0xlq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t352r"]
@@ -15,6 +16,7 @@ script = ExtResource("1_so3cc")
 FireScn = ExtResource("2_7xr16")
 IceScn = ExtResource("3_vhilq")
 RockScn = ExtResource("4_gbae3")
+PlantScn = ExtResource("5_m7vtx")
 BoltScn = ExtResource("5_cdb5r")
 
 [node name="Secondary" type="Sprite2D" parent="."]

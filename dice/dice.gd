@@ -40,26 +40,32 @@ func _ready():
 
 func _input(event) -> void:
 	if $MovTimer.is_stopped():
+		var obstacles_positions = get_parent().obstacles
+		var enemy_positions = get_parent().get_enemies_coordinates()
 		if event.is_action_pressed("ui_up"):
-			if target_pos.y - 1 < 1:
+			if target_pos.y - 1 < 1\
+				or target_pos - Vector2i(0, 1) in obstacles_positions:
 				print("Invalid pos")
 			else:
-				move(Vector2i(0, -1))
+				move(Vector2i(0, -1), obstacles_positions, enemy_positions)
 		elif event.is_action_pressed("ui_down"):
-			if offset and target_pos.y + 1 > offset.y:
+			if offset and target_pos.y + 1 > offset.y\
+				or target_pos + Vector2i(0, 1) in obstacles_positions:
 				print("Invalid pos")
 			else:
-				move(Vector2i(0, 1))
+				move(Vector2i(0, 1), obstacles_positions, enemy_positions)
 		elif event.is_action_pressed("ui_right"):
-			if offset and target_pos.x + 1 > offset.x:
+			if offset and target_pos.x + 1 > offset.x\
+				or target_pos + Vector2i(1, 0) in obstacles_positions:
 				print("Invalid pos")
 			else:
-				move(Vector2i(1, 0))
+				move(Vector2i(1, 0), obstacles_positions, enemy_positions)
 		elif event.is_action_pressed("ui_left"):
-			if target_pos.x - 1 < 1:
+			if target_pos.x - 1 < 1\
+				or target_pos - Vector2i(1, 0) in obstacles_positions:
 				print("Invalid pos")
 			else:
-				move(Vector2i(-1, 0))
+				move(Vector2i(-1, 0), obstacles_positions, enemy_positions)
 		_update_projected_moves()
 
 
@@ -98,7 +104,7 @@ func int2power(value: int) -> String:
 	return sides_to_powers[value - 1]
 
 
-func move(direction: Vector2i) -> void:
+func move(direction: Vector2i, obstacles: Array, enemy_positions: Array) -> void:
 	var mov_tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
 	
 	target_pos += direction
@@ -110,12 +116,7 @@ func move(direction: Vector2i) -> void:
 	$ProjectedMoves.modulate = Color(1, 1, 1, 0)
 	$ProjTimer.start()
 	
-	#var prev_top_side = int2power(sides['top']) 
 	sides = turn_dice(sides, direction)
-	#var new_top_side = int2power(sides['top'])
-	#$Top.texture = load("res://dice/" + int2power(sides['top']) + ".png")
-	#print(prev_top_side)
-	#print(new_top_side)
 	_animate_dice_roll(direction)
 	
 	await mov_tween.finished
@@ -130,6 +131,8 @@ func move(direction: Vector2i) -> void:
 	elif sides['top'] == 4:
 		_air(direction)
 		await dashed
+	elif sides['top'] == 3:
+		_plant(direction, obstacles + enemy_positions)
 	emit_signal("moved")
 
 
@@ -232,6 +235,22 @@ func _air(direction: Vector2i) -> void:
 	mov_tween.tween_property(self, "position", Vector2(get_absolute_pos()), MOV_TIME)
 	await mov_tween.finished
 	emit_signal("dashed")
+
+
+func _plant(direction: Vector2i, obstacles_positions: Array) -> void:
+	var Plant1 = PlantScn.instantiate()
+	var Plant2 = PlantScn.instantiate()
+	var Plant3 = PlantScn.instantiate()
+	var plant1_pos = (target_pos + 2 * direction) + Vector2i(-direction.y, -direction.x)
+	var plant2_pos = (target_pos + 2 * direction)
+	var plant3_pos = (target_pos + 2 * direction) + Vector2i(direction.y, direction.x)
+	
+	get_parent().get_node("Enemies").add_child(Plant1)
+	get_parent().get_node("Enemies").add_child(Plant2)
+	get_parent().get_node("Enemies").add_child(Plant3)
+	Plant1.grow(plant1_pos, MOV_DIST, obstacles_positions)
+	Plant2.grow(plant2_pos, MOV_DIST, obstacles_positions)
+	Plant3.grow(plant3_pos, MOV_DIST,obstacles_positions)
 
 
 func _on_proj_timer_timeout():
