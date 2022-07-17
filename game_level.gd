@@ -4,7 +4,8 @@ extends Node
 var MAP_SIZE: Vector2i
 
 @export var PlayerScn: PackedScene
-@export var initial_pos: Vector2i
+#@export var initial_pos: Vector2i
+var initial_pos: Vector2i = Vector2i(10, 10)
 
 var Player
 var obstacles = []
@@ -81,7 +82,10 @@ func next_turn() -> void:
 	
 	if $Enemies.get_child_count() == 0:
 		game_level += 1
-		if game_level <= 2:
+		if game_level <= 5:
+			Player.target_pos = initial_pos
+			var mov_tween = create_tween().set_trans(Tween.TRANS_ELASTIC)
+			mov_tween.tween_property(Player, "position", Vector2(Player.get_absolute_pos()), Player.MOV_TIME)
 			$LevelManager.instantiateNewLevel("level_" + str(game_level))
 		else:
 			pass
