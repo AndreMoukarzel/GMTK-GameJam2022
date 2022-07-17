@@ -91,5 +91,5 @@ func next_turn() -> void:
 
 func fade_out():
 	$AnimationPlayer.play("fade_out")
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(1.5).timeout
 	get_tree().change_scene("res://Menus/defeat.tscn")
