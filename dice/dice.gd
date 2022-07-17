@@ -16,10 +16,8 @@ const PROJ_FADE_IN_TIME: float = 0.8
 @export var PlantScn: PackedScene
 @export var BoltScn: PackedScene
 @export var AirScn: PackedScene
-#@export var can_move_to_broken: bool = true
 
-#var sides_broken = [false, false, false, false, false, false]
-var life: int = 6
+
 var target_pos: Vector2i = Vector2i.ONE
 var offset
 var sides: Dictionary = {
@@ -31,6 +29,7 @@ var sides: Dictionary = {
 	'bottom': 6
 }
 var sides_to_powers = ["bolt", "rock", "plant", "wind", "ice", "fire"]
+var sides_broken = []
 var projections_tween: Tween
 var can_move: bool = true
 
@@ -124,27 +123,37 @@ func move(direction: Vector2i, obstacles: Array, enemy_positions: Array) -> void
 	_animate_dice_roll(direction)
 	
 	await mov_tween.finished
-	if sides['top'] == 6:
+	if sides['top'] == 6 and int2power(sides['top']) not in sides_broken:
 		_fire()
-	elif sides['top'] == 5:
+	elif sides['top'] == 5 and int2power(sides['top']) not in sides_broken:
 		_ice()
 		await iced
-	elif sides['top'] == 2:
+	elif sides['top'] == 2 and int2power(sides['top']) not in sides_broken:
 		_rock(direction)
-	elif sides['top'] == 1:
+	elif sides['top'] == 1 and int2power(sides['top']) not in sides_broken:
 		_bolt()
-	elif sides['top'] == 4:
+	elif sides['top'] == 4 and int2power(sides['top']) not in sides_broken:
 		_air(direction)
 		await dashed
-	elif sides['top'] == 3:
+	elif sides['top'] == 3 and int2power(sides['top']) not in sides_broken:
 		_plant(direction, obstacles + enemy_positions)
 	emit_signal("moved")
 
 
 func damage(value: int=1):
-	#sides_broken[sides['top']]
-	life -= value
-	print("Life = ", life)
+	var current_power = int2power(sides['top'])
+	if current_power not in sides_broken:
+		sides_broken.append(current_power)
+		$AnimationPlayer.play("break")
+	else: # Break another random side
+		var side_to_break = randi_range(1, 6)
+		while int2power(side_to_break) in sides_broken:
+			side_to_break = randi_range(1, 6)
+		sides_broken.append(int2power(side_to_break))
+		$DamageSfx.play()
+	
+	if len(sides_broken) >= 6:
+		queue_free()
 
 
 func _update_projected_moves() -> void:
@@ -172,7 +181,13 @@ func _animate_dice_roll(direction: Vector2i) -> void:
 	var top_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	var sec_twn = create_tween().set_trans(Tween.TRANS_QUAD).set_parallel()
 	
+	$Top.modulate = Color(1, 1, 1)
 	$Secondary.texture = load("res://dice/" + int2power(sides['top']) + ".png")
+	if int2power(sides['top']) in sides_broken:
+		$Secondary.modulate = Color(0.2, 0.2, 0.2)
+	else:
+		$Secondary.modulate = Color(1, 1, 1)
+	
 	if direction.x != 0:
 		$Secondary.position = -direction * 16
 		$Secondary.scale = Vector2(0.0, 0.125)
@@ -196,6 +211,11 @@ func _animate_dice_roll(direction: Vector2i) -> void:
 	$Top.scale = Vector2(0.125, 0.125)
 	$Top.position = Vector2(0, 0)
 	$Top.texture = load("res://dice/" + int2power(sides['top']) + ".png")
+	if int2power(sides['top']) in sides_broken:
+		$Top.modulate = Color(0.2, 0.2, 0.2)
+	else:
+		$Top.modulate = Color(1, 1, 1)
+	
 
 
 func _fire():
